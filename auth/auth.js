@@ -1,7 +1,7 @@
 /** @format */
 
 const router = require('express').Router();
-const { User, Map, Location } = require('./db');
+const { User, Map, Location } = require('../db');
 
 //get user's info
 router.get('/me', async (req, res, next) => {
