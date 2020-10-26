@@ -1,9 +1,24 @@
+# @format
+
 language: node_js
 node_js:
   - 'stable'
 cache:
   directories:
     - 'node_modules'
+services:
+  - postgresql # starts up postgres
+addons:
+  postgresql: '10' # recent postgres version on Travis
+dist: xenial # uses xenial environment
+notifications:
+  email:
+    on_success: change # default: change (only when going from broken to fixed)
+    on_failure: always # default: always (which is annoying, as it should be)
+install:
+  - npm ci # faster, goes only from package-lock
+before_script:
+  - psql -c 'create database "mapitpostgrad-test";' -U postgres
 deploy:
   provider: heroku
   api_key:
