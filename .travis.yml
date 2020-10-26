@@ -1,11 +1,13 @@
 language: node_js
 node_js:
-  - "stable"
+  - 'stable'
 cache:
   directories:
-    - "node_modules"
+    - 'node_modules'
 deploy:
   provider: heroku
-   app: mapitapp
-   api_key:
-      secure: "uoSuHuy/K25VgoZHwVdR/3e/kc6Cp0smhIA93mPdjSrngdBkh6qrPRMuLjTVQi+YkvgBJaVFPPFBJcHvjTzx3nYhr1RM84ZKtRau2vxFMLpgbW4JCaq9j+rM9iVagNAc7PCXLrVK8uw7D4eoAnrIi6g7eTzoMPDW9mqeK7Q2cBZKK/hntdgoQlcAKNyPHNaL8uOA5EAFZjsIgnAy0MC+vZJW77DE525V/KnG5om3rnksYOst+0CCkKFuIcG1aeOe66D4b6cA09irgFL+E70SPjG6qI/5cW65uuG4LlciHAMP9rmAYlqe5I2yGBkTYffhYzNo6EBLzzKJEKUFjzTtQfCumrHs3FVm3lp/vntzjfi7uEZcSayOiuo0ovG1ONRsQWk3UPMC0Ufl48RTE63ZnOTJ39G78qkegrkToEjePTMag2Ls0CEAuIElj3AnDGKrpTjQQLsovbdTr6Mfo90Rvhc09dWISfRJ14p/ZuTdEdH+wdTyZqG2vMeI33tgWw25/ylNNhxOljJUo1OiAKRPLqOhQafseIrCyT+hHKXMOPLb9qGQEVPYtW9635Z2gxKIYaaqFIoOfp5+dp/6+8EUPUg6IPQX8jTys8u5d7F5ZUGQdpfSpBnEvhgaF93094/Sl6WYXTG0EtCdu82RCJpTAV2UlIxeGV0IAzcoS5VgUc8="
+  api_key:
+    secure: uoSuHuy/K25VgoZHwVdR/3e/kc6Cp0smhIA93mPdjSrngdBkh6qrPRMuLjTVQi+YkvgBJaVFPPFBJcHvjTzx3nYhr1RM84ZKtRau2vxFMLpgbW4JCaq9j+rM9iVagNAc7PCXLrVK8uw7D4eoAnrIi6g7eTzoMPDW9mqeK7Q2cBZKK/hntdgoQlcAKNyPHNaL8uOA5EAFZjsIgnAy0MC+vZJW77DE525V/KnG5om3rnksYOst+0CCkKFuIcG1aeOe66D4b6cA09irgFL+E70SPjG6qI/5cW65uuG4LlciHAMP9rmAYlqe5I2yGBkTYffhYzNo6EBLzzKJEKUFjzTtQfCumrHs3FVm3lp/vntzjfi7uEZcSayOiuo0ovG1ONRsQWk3UPMC0Ufl48RTE63ZnOTJ39G78qkegrkToEjePTMag2Ls0CEAuIElj3AnDGKrpTjQQLsovbdTr6Mfo90Rvhc09dWISfRJ14p/ZuTdEdH+wdTyZqG2vMeI33tgWw25/ylNNhxOljJUo1OiAKRPLqOhQafseIrCyT+hHKXMOPLb9qGQEVPYtW9635Z2gxKIYaaqFIoOfp5+dp/6+8EUPUg6IPQX8jTys8u5d7F5ZUGQdpfSpBnEvhgaF93094/Sl6WYXTG0EtCdu82RCJpTAV2UlIxeGV0IAzcoS5VgUc8=
+  app: mapitapp
+  on:
+    repo: betsyg6/mapitapp
