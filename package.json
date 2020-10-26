@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register",
+		"test": "NODE_ENV='test' mocha \"./db/*.spec.js\" ",
 		"seed": "node seed.js",
 		"start": "node index.js",
 		"deploy": "script/deploy",
