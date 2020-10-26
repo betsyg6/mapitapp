@@ -7,7 +7,8 @@ services:
   - postgresql # starts up postgres
 addons:
   postgresql: '10' # recent postgres version on Travis
-dist: xenial # uses xenial environment
+dist: trusty # uses xenial environment
+sudo: false
 notifications:
   email:
     on_success: change # default: change (only when going from broken to fixed)
@@ -19,12 +20,11 @@ before_script:
 script:
   - npm test # test the code
   # - npm run build-client # make the bundle
-  
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+   - rm -rf node_modules # omit from the tarball, since we skip cleanup
+ deploy:
+   skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+   app: mapitapp # see README
+   api_key:
+     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
