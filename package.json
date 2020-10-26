@@ -6,7 +6,9 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"seed": "node seed.js",
-		"start": "node index.js"
+		"start": "node index.js",
+		"deploy": "script/deploy",
+		"heroku-token": "script/encrypt-heroku-auth-token.js"
 	},
 	"author": "",
 	"license": "ISC",
@@ -17,6 +19,7 @@
 		"morgan": "^1.10.0",
 		"passport": "^0.4.1",
 		"pg": "^8.4.1",
-		"sequelize": "^6.3.5"
+		"sequelize": "^6.3.5",
+		"yaml": "^1.10.0"
 	}
 }
