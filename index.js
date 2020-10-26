@@ -8,7 +8,7 @@ const passport = require('passport');
 const port = process.env.PORT || 3000;
 const db = require('./db/db');
 
-// //socket
+//socket
 // const server = require('http').createServer(app);
 // const io = require('socket.io')(server);
 
