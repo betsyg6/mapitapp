@@ -21,6 +21,7 @@ before_script:
   - psql -c 'create database "mapitpostgrad-test";' -U postgres
 before_deploy: # omit node_modules, since we set skip_cleanup below
   - rm -rf node_modules
+  script: echo "Success!"
 deploy:
   skip_cleanup: true
   provider: heroku
