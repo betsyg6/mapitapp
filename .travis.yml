@@ -1,27 +1,11 @@
 language: node_js
 node_js:
-  - 12 # uses version 12
-services:
-  - postgresql # starts up postgres
-addons:
-  postgresql: '10' # recent postgres version on Travis
-dist: trusty # uses xenial environment
-sudo: false
-notifications:
-  email:
-    on_success: change # default: change (only when going from broken to fixed)
-    on_failure: always # default: always (which is annoying, as it should be)
-install:
-  - npm ci # faster, goes only from package-lock
-before_script:
-  - psql -c 'create database "mapitpostgrad-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
-script:
-  - npm test # test the code
-  # - npm run build-client # make the bundle
-# before_deploy:
-#    - rm -rf node_modules # omit from the tarball, since we skip cleanup
-#  deploy:
-#    skip_cleanup: true # prevents travis from deleting the build
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
   provider: heroku
    app: mapitapp # see README
    api_key:

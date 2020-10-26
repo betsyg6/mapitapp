@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "NODE_ENV='test' mocha \"./db/*.spec.js\" ",
+		"test": "mocha",
 		"seed": "node seed.js",
 		"start": "node index.js",
 		"deploy": "script/deploy",
@@ -21,6 +21,7 @@
 		"express-session": "^1.17.1",
 		"fs": "0.0.1-security",
 		"git-url-parse": "^11.4.0",
+		"mocha": "^8.2.0",
 		"morgan": "^1.10.0",
 		"passport": "^0.4.1",
 		"pg": "^8.4.1",
