@@ -1,12 +1,12 @@
+# @format
+
 language: node_js
 node_js:
-- stable
+  - stable
 script: true
 deploy:
   provider: heroku
   api_key:
     secure: Qdpl2ylgAtx3m7sqIQPY8vch2sryJwlwLX5Qf4KMyyOs0QZqlX6P2u67aCFr/w7NaRPQ/sJa1jpCxR2GLzK7Y3urIFDffqlAwPDkd8HFRlHSSFixzytd3vGWFByHaDHt8xm9B7jMzQVvISqplC3rR0iiBvQp5XPDUswXgJMlRFlrwoosKEWsW9HA/w9UWbVudUIQTkBfmQ5tKONN5dvYTOI3nAY7WkTgh6rdYzbAeDHM7N2N4ReOIrMDO1cvmYNcuuygantweJhmaMgNj1WxwWhjJQHUnfTGySCne3bDWh4K8FpeAJ05hY7axLwc7V3XdRCcD7JZVMJ4u8rjRbYv4ECqEHe9lHzGvUtCszSMN60ChrS5tivnmGWtasv55eFfBEaiMAUpdnGDpALVqfaq8AEtrsOP8ZnoBGi1Ofkms5vBkjRdPyPJjJou1RTYwgfsMiwYyo554qnlyApyLxMpiMMAObEdGUtiZAvTe45uQNXBCVz48ROMDLrvzKjSr8bgvtDPrZuCs/z0q2kC5IpPnXZdHA/zqUd/ob9KS2LpRtr+THS5xETG0QgjxBYm0AvVLJuEsNCDy33tKBvwVnsHEYOPbp0pwqSvciz4OlpdEUtpnSDJixzHKMZao4abP91tlBxPGWgHNFcUnm386AbcQP/DmZaIhZk+hUwVSZCr5YA=
-  app: mapitapp
-  on:
-    repo: betsyg6/mapitapp
+
   skip_cleanup: 'true'
