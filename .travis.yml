@@ -3,15 +3,14 @@
 language: node_js
 node_js:
   - 12
-script: true
-branches:
-  only:
-    - master
-deploy: # see README for details on these keys
-  skip_cleanup: true
-  provider: heroku
-  app: mapitapp
-  api_key:
-    secure: PKVzAqW40Wrnk23iJMWLC72fsJgli1Ov5JmIPVPcQ/FbdJH5wkH9gmDhak4AxCuPDNYKGQ55EA6mPt0ufNRk/UoZBIsb3wqaESRIl/f8HpF9f9Jebl4SXfv0H9q2Ac9fcWG2uHB719YpK1BgRDti8W8cEnQ54pGHYTaXY25UPMAakpMxcY70k87i6lST+ZL6BE6XQhV56G/EYq2N8hwxA1RVMhDS60wUbuqgiZf7Hu+SFg53YlFwYL6GU4PVizKxZJzNgm2jUrMo8JpZ6FMeUrCUt6Lk55CFkkrf7fx/BPaUVomBV2yF/SxWmREhlXR0XHufZv4tkfiSypxHukjQKcrK38FAKFkbgxugR2+/KCA+PDcK0GsCyzszYKzZExxennYVDUm+KqvWnEtQvqc+27amSkd2ZI0i+ECF8F3vZpOWN+XIcWg0lyEcDu1payMducMt7fJpJIjVcsSbsWf8NrIrCgp5BDrEdFFigr9YBdxp8qQSO9isgpUA9OBtR1623MYMP4X47lVZTwcOtPRD96S0nR9L3ipmUmjEQWcLboAlPwTUrnRY0GjFzjmhAvUsxPllH4Bi5nPzxNX9/pLFMfSAXBLQS77ee5g6OA3/oWZ09IKgudHYFAP/E17rDjsnsFpYbOb0lWu3H4AMhqpYdFeVhoqcbJtvVBhegLt3e0s=
 before_deploy: # omit node_modules, since we set skip_cleanup below
   - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: mapitapp
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: b7JnuYXA5LpjJH27U8+8kDoD8CBgI0J93pQLAKGQNK0eh1dUlT7Ajact79Ok0293J3A5xosCDx1G6ky/Bw5hHXzEDHHQygZzLs8yVv4d980IaC28dZPAsbH0Tt3wyJ79J9nGEQi2oc7bgFULqnnef4vc2PQH7jZt+V8+ueeL2HBUEnWi5qYwdu7jfmzNpNxMOExieMhI8IB+uXjYGDgYzI186+tIuAefIFcKgmqd5wnKUiATadEQAQGvHQQMNG5SeFxbAQDlVXNl0W1JkazqLifhLiF9w5GB1U+TOl52NV5H8xrlNUTsCVIH4QOcHsHE8fXE1P0PRjiiPXrRLu9pJ50n+8LiFTNCLkaF1d41xb6NntqiDMz1qkJ+GAAKv1J0juht5k6ct2hm9yITMDwiIFEFlEHcHUScbiOeWe3v0vKDnOBnbyFflE0V+MoBhfyoeCWXGjU0sz47NbTP8TojdQtLHuKP+RuDEwsXMBpS8LgbLn9ObLn4NgWiPgmUTFVTbWp69DPcY11WqUNTSQIhi9i/gdhKeGH+7qFqWn2uABRAhsXwYahVveHlpBxdFbHkjatMdFjt5tF5PYNDwRW5BokBdhLbxU64bXjDgVXaVhnjgn0vgTiF6y0TksMx6amJX9809/V2HI3F6znnZc3Ms2sjRqozftgwS5FbIzzDx6I=
