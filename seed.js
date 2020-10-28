@@ -1,6 +1,6 @@
 /** @format */
 
-const { db, User, Map } = require('./db');
+const { db, User, Map } = require('./server/db');
 
 const seed = async () => {
 	try {

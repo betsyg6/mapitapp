@@ -10,7 +10,7 @@ const YAML = require('yaml')
 
 /* Specific message contents stored as constants */
 
-const keyComments = require('./keyComments.json')
+const keyComments = require('./keyComments.json.js')
 
 const idempotenceMessage = `It appears that your token has been encrypted.
 To run this script again, delete the \`before_deploy\` and \`deploy\` keys

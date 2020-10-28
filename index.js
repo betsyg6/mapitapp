@@ -6,7 +6,8 @@ const morgan = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 const port = process.env.PORT || 3000;
-const db = require('./db/db');
+const db = require('./server/db/db');
+const path = require('path');
 
 //socket
 // const server = require('http').createServer(app);
@@ -43,14 +44,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-	res.send('hi!');
-});
-
 // authentication router
-app.use('/auth', require('./auth/auth'));
+app.use('/auth', require('./server/auth/auth'));
 //other routes
-app.use('/api', require('./api'));
+app.use('/api', require('./server/api'));
+
+app.use(express.static(path.join(__dirname, 'client/public')));
+
+app.get('*', function (req, res, next) {
+	res.sendFile(path.join(__dirname, '/client/public/index.html'));
+});
 
 async () => {
 	await db.sync({ force: true });
