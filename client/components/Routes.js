@@ -11,13 +11,15 @@ export default class Routes extends Component {
 	render() {
 		return (
 			<Router>
-				<Header />
-				<Navbar />
-				<Switch>
-					<Route exact path="/" component={CreateAMap} />
-					<Route exact path="/createamap" component={CreateAMap} />
-					<Route path="/login" component={Login} />
-				</Switch>
+				<div>
+					<Header />
+					<Navbar />
+					<Switch>
+						<Route exact path="/" component={CreateAMap} />
+						<Route exact path="/createamap" component={CreateAMap} />
+						<Route path="/login" component={Login} />
+					</Switch>
+				</div>
 			</Router>
 		);
 	}

@@ -106,10 +106,12 @@ class CreateAMap extends React.Component {
 		});
 
 		return (
-			<div id="app-container">
-				<button id="findMe" onClick={this.findMe}>
-					Find me!
-				</button>
+			<div>
+				<div id="buttonContainer">
+					<button id="findMe" onClick={this.findMe}>
+						Find me!
+					</button>
+				</div>
 
 				{/* <div className={this.state.showMenu ? 'showMenu' : 'hideMenu'}>
 					<p>icon options!</p>
