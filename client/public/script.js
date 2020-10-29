@@ -1,6 +1,6 @@
 /** @format */
 
-gsap.from('#header-container', {
+gsap.from('#nav-container', {
 	duration: 2,
 	y: '-100%',
 	ease: 'bounce',
@@ -8,7 +8,7 @@ gsap.from('#header-container', {
 	delay: 1,
 });
 
-gsap.from('#findMe', {
+gsap.from('#mininav', {
 	duration: 1.5,
 	x: '-100vw',
 	ease: 'power2.in',
@@ -16,7 +16,7 @@ gsap.from('#findMe', {
 });
 
 gsap.fromTo(
-	'.leaflet-container',
+	'.welcome',
 	{
 		opacity: 0,
 		scale: 0,

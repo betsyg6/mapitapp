@@ -3,6 +3,7 @@ body {
 	font-family: 'Sanchez', serif;
 	color: white;
 	background-color: rgb(227, 113, 255);
+	text-align: center;
 }
 
 #app-container {
@@ -62,12 +63,9 @@ img {
 	text-decoration: none;
 }
 
-#buttonContainer {
-	display: flex;
-}
-
-#findMe {
-	align-items: center;
+a {
+	text-decoration: none;
+	color: #ffffff;
 }
 
 nav {

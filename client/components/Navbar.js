@@ -5,9 +5,10 @@ import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
 	return (
-		<nav id="navbar" className="text-link">
-			<NavLink to="/createamap">Create a Map</NavLink>
+		<nav id="nav-container" className="text-link">
 			<NavLink to="/login">Login</NavLink>
+			<NavLink to="/signup">Sign Up</NavLink>
+			<NavLink to="/createamap">Create a Map</NavLink>
 		</nav>
 	);
 };
