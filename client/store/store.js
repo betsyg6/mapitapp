@@ -1,3 +1,5 @@
+/** @format */
+
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import axios from 'axios';
 //import appReducer from './store'
@@ -6,17 +8,16 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import userReducer from './user';
 
-
 let middleware = [
 	// `withExtraArgument` gives us access to axios in our async action creators!
 	// https://github.com/reduxjs/redux-thunk#injecting-a-custom-argument
 	thunkMiddleware.withExtraArgument({ axios }),
 ];
-if (process.browser) {
-	// We'd like the redux logger to only log messages when it's running in the
-	// browser, and not when we run the tests from within Mocha.
-	middleware = [...middleware, createLogger({ collapsed: true })];
-}
+// if (process.browser) {
+// 	// We'd like the redux logger to only log messages when it's running in the
+// 	// browser, and not when we run the tests from within Mocha.
+// 	middleware = [...middleware, createLogger({ collapsed: true })];
+// }
 
 const rootReducer = combineReducers({
 	user: userReducer,
