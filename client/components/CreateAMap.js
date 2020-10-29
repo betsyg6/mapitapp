@@ -7,7 +7,6 @@ import { divIcon } from 'leaflet';
 import nextId from 'react-id-generator';
 import PrintControlDefault from 'react-leaflet-easyprint';
 const PrintControl = withLeaflet(PrintControlDefault);
-import Header from './Header';
 
 // export const food = new L.Icon({
 // 	iconUrl: './restaurant-outline.svg',
@@ -108,7 +107,7 @@ class CreateAMap extends React.Component {
 
 		return (
 			<div>
-				<Header />
+				<p>Click on the map to add a marker!</p>
 
 				<div id="buttonContainer">
 					<button id="findMe" onClick={this.findMe}>
