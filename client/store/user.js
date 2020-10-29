@@ -30,6 +30,7 @@ export const login = (email, password) => async (dispatch) => {
 		history.push('/home');
 	} catch (err) {
 		console.log(err);
+		history.push('/login');
 	}
 };
 
