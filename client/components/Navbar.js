@@ -12,6 +12,7 @@ const NavBar = () => {
 				<NavLink to="/login">Login</NavLink>
 				<NavLink to="/signup">Sign Up</NavLink>
 				<NavLink to="/createamap">Create a Map</NavLink>
+				<NavLink to="/home">Home</NavLink>
 			</nav>
 		</div>
 	);

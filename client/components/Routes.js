@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import Login from './Login';
 import Signup from './Signup';
 import Welcome from './Welcome';
+import Home from './Home';
 
 export default class Routes extends Component {
 	render() {
@@ -19,6 +20,7 @@ export default class Routes extends Component {
 						<Route path="/createamap" component={CreateAMap} />
 						<Route path="/login" component={Login} />
 						<Route path="/signup" component={Signup} />
+						<Route path="/home" component={Home} />
 					</Switch>
 				</div>
 			</Router>
