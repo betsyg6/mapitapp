@@ -5,14 +5,14 @@ gsap.from('#nav-container', {
 	y: '-100%',
 	ease: 'bounce',
 	opacity: 0,
-	delay: 1,
+	delay: 2,
 });
 
-gsap.from('#mininav', {
+gsap.from('#small', {
 	duration: 1.5,
 	x: '-100vw',
 	ease: 'power2.in',
-	delay: 2,
+	delay: 1,
 });
 
 gsap.fromTo(
