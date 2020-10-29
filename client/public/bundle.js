@@ -2525,6 +2525,7 @@ var Login = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.props.user);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
@@ -2804,7 +2805,7 @@ var Welcome = function Welcome() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "an app that helps you share locations")));
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Welcome);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Welcome); //push here after logging in and change this welcome to be customized to the user
 
 /***/ }),
 
@@ -2988,7 +2989,7 @@ var login = function login(email, password) {
             case 4:
               res = _context2.sent;
               dispatch(getUser(res.data));
-              _history__WEBPACK_IMPORTED_MODULE_1__.default.push('/home');
+              _history__WEBPACK_IMPORTED_MODULE_1__.default.push('/');
               _context2.next = 13;
               break;
 
