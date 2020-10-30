@@ -13,6 +13,12 @@ const Location = db.define('location', {
 	icon: {
 		type: Sequelize.STRING,
 	},
+	title: {
+		type: Sequelize.STRING,
+	},
+	imageUrl: {
+		type: Sequelize.TEXT,
+	},
 });
 
 module.exports = Location;

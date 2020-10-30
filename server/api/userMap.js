@@ -24,4 +24,16 @@ router.get('/:id', async (req, res, next) => {
 	}
 });
 
+//associate locations to one map
+router.post('/:id', async (req, res, next) => {
+	try {
+		let map = await Map.findByPk(req.params.id);
+		let newLocation = await Location.create(req.body);
+		await map.update(map.addLocation(newLocation));
+		res.json(map);
+	} catch (err) {
+		next(err);
+	}
+});
+
 module.exports = router;
