@@ -32,7 +32,7 @@ class Login extends Component {
 	}
 
 	render() {
-		console.log(this.props.user);
+	
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
