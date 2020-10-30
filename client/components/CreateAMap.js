@@ -8,6 +8,7 @@ import nextId from 'react-id-generator';
 import PrintControlDefault from 'react-leaflet-easyprint';
 const PrintControl = withLeaflet(PrintControlDefault);
 
+
 // export const food = new L.Icon({
 // 	iconUrl: './restaurant-outline.svg',
 // 	iconSize: [25, 55],
@@ -107,6 +108,7 @@ class CreateAMap extends React.Component {
 
 		return (
 			<div>
+
 				<p>Click on the map to add a marker!</p>
 
 				<div id="buttonContainer">

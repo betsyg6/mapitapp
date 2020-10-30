@@ -8,12 +8,14 @@ import Login from './Login';
 import Signup from './Signup';
 import Welcome from './Welcome';
 import Home from './Home';
+import Header from './Header';
 
 export default class Routes extends Component {
 	render() {
 		return (
 			<Router>
 				<div>
+					<Header />
 					<Navbar />
 					<Switch>
 						<Route exact path="/" component={Welcome} />

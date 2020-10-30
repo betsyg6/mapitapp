@@ -2,22 +2,46 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Header from './Header';
+import { connect } from 'react-redux';
+import { logout } from '../store/user';
 
-const NavBar = () => {
+const NavBar = ({ isLoggedIn, handleClick }) => {
 	return (
 		<div>
-			<Header />
-			<nav id="nav-container" className="text-link">
-				<NavLink to="/login">Login</NavLink>
-				<NavLink to="/signup">Sign Up</NavLink>
-				<NavLink to="/createamap">Create a Map</NavLink>
-				<NavLink to="/home">Home</NavLink>
-			</nav>
+			{isLoggedIn ? (
+				<nav id="nav-container" className="text-link">
+					<a href="#" onClick={handleClick}>
+						Logout
+					</a>
+					<NavLink to="/createamap">Create a Map</NavLink>
+					<NavLink to="/home">Home</NavLink>
+				</nav>
+			) : (
+				<div>
+					<nav id="nav-container" className="text-link">
+						<NavLink to="/login">Login</NavLink>
+						<NavLink to="/signup">Sign Up</NavLink>
+					</nav>
+				</div>
+			)}
 		</div>
 	);
 };
 
-export default NavBar;
+const mapState = (state) => {
+	return {
+		isLoggedIn: !!state.user.id,
+	};
+};
+
+const mapDispatch = (dispatch) => {
+	return {
+		handleClick() {
+			dispatch(logout());
+		},
+	};
+};
+
+export default connect(mapState, mapDispatch)(NavBar);
 
 //eventually have the ternary for if youre logged in
