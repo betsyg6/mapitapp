@@ -1,3 +1,5 @@
+/** @format */
+
 const Sequelize = require('sequelize');
 const db = require('./db');
 
@@ -9,8 +11,8 @@ const Location = db.define('location', {
 		type: Sequelize.TEXT,
 	},
 	icon: {
-		type: Sequelize.TEXT
-	}
+		type: Sequelize.STRING,
+	},
 });
 
 module.exports = Location;

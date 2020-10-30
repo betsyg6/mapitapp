@@ -2275,6 +2275,7 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
           className: "fa fa-glass-martini fa-2x"
         }))
       });
+      console.log('description', this.state.description.length > 0 && console.log(this.state.description));
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Click on the map to add a marker!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         id: "buttonContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
