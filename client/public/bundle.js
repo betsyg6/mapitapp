@@ -2549,7 +2549,7 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.default, {
         url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors"
-      }), this.props.locations && this.props.locations.length > 0 && this.props.locations.map(function (obj) {
+      }), this.props.map.locations && this.props.map.locations.length > 0 && this.props.map.locations.map(function (obj) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.default, {
           key: "marker-".concat(obj.id),
           position: [Number(obj.latitude), Number(obj.longitude)],

@@ -52,7 +52,6 @@ class CreateANewMap extends React.Component {
 	// 	this.setState({ showMenu: !this.state.showMenu });
 	// }
 
-
 	addMap() {
 		let obj = { city: this.state.city };
 		this.props.addAMap(obj);
@@ -148,9 +147,9 @@ class CreateANewMap extends React.Component {
 								attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 							/>
 
-							{this.props.locations &&
-								this.props.locations.length > 0 &&
-								this.props.locations.map((obj) => (
+							{this.props.map.locations &&
+								this.props.map.locations.length > 0 &&
+								this.props.map.locations.map((obj) => (
 									<Marker
 										key={`marker-${obj.id}`}
 										position={[Number(obj.latitude), Number(obj.longitude)]}
