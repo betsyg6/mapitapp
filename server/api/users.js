@@ -1,7 +1,7 @@
 /** @format */
 
 const router = require('express').Router();
-const { User, Map } = require('../db');
+const { User, Mapp } = require('../db');
 
 //get all users
 router.get('/', async (req, res, next) => {
@@ -12,5 +12,6 @@ router.get('/', async (req, res, next) => {
 		next(err);
 	}
 });
+
 
 module.exports = router;

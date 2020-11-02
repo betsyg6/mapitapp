@@ -13,7 +13,7 @@ const NavBar = ({ isLoggedIn, handleClick }) => {
 					<a href="#" onClick={handleClick}>
 						Logout
 					</a>
-					<NavLink to="/createamap">Create a Map</NavLink>
+
 					<NavLink to="/home">Home</NavLink>
 				</nav>
 			) : (
@@ -21,6 +21,7 @@ const NavBar = ({ isLoggedIn, handleClick }) => {
 					<nav id="nav-container" className="text-link">
 						<NavLink to="/login">Login</NavLink>
 						<NavLink to="/signup">Sign Up</NavLink>
+						<NavLink to="/createamap">Create a Map</NavLink>
 					</nav>
 				</div>
 			)}

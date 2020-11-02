@@ -58,6 +58,9 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
+
+
+
 const defaultUser = {};
 export default function userReducer(state = defaultUser, action) {
 	switch (action.type) {

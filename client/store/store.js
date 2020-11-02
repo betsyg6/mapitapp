@@ -8,6 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import userReducer from './user';
 import locationsReducer from './locations';
+import mapReducer from './map';
 
 let middleware = [
 	// `withExtraArgument` gives us access to axios in our async action creators!
@@ -23,6 +24,7 @@ let middleware = [
 const rootReducer = combineReducers({
 	user: userReducer,
 	locations: locationsReducer,
+	map: mapReducer,
 });
 
 const store = createStore(

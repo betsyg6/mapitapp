@@ -44,6 +44,8 @@ export const add = (obj, mapId) => async (dispatch) => {
 // 	}
 // };
 
+
+
 const defaultLocations = [];
 export default function locationsReducer(state = defaultLocations, action) {
 	switch (action.type) {

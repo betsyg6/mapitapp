@@ -24,6 +24,18 @@ router.get('/:id', async (req, res, next) => {
 	}
 });
 
+//associate a map to a user
+router.post('/map', async (req, res, next) => {
+	try {
+		const user = await User.findByPk(req.user.id);
+		const map = await Mapp.create(req.body);
+		await user.update(user.setMapp(map));
+		res.json(user);
+	} catch (err) {
+		next(err);
+	}
+});
+
 //associate locations to one map
 router.post('/:id', async (req, res, next) => {
 	try {
