@@ -2536,11 +2536,7 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
         }))
       });
       console.log('map', this.props.map);
-
-      if (this.props.map && this.props.map.id) {
-        this.props.getMap(this.props.map.id);
-      }
-
+      console.log('user', this.props.user);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.mapAdded ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Click on the map to add a marker!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         id: "buttonContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {

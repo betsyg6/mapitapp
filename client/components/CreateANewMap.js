@@ -52,6 +52,7 @@ class CreateANewMap extends React.Component {
 	// 	this.setState({ showMenu: !this.state.showMenu });
 	// }
 
+
 	addMap() {
 		let obj = { city: this.state.city };
 		this.props.addAMap(obj);
@@ -118,10 +119,7 @@ class CreateANewMap extends React.Component {
 		});
 
 		console.log('map', this.props.map);
-		//this might need to be in a component did update?
-		// if (this.props.map && this.props.map.id) {
-		// 	this.props.getMap(this.props.map.id);
-		// }
+		console.log('user', this.props.user);
 
 		return (
 			<div>
