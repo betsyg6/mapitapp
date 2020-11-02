@@ -1,6 +1,6 @@
 /** @format */
 
-const { db, User, Map } = require('./server/db');
+const { db, User, Mapp } = require('./server/db');
 
 const seed = async () => {
 	try {
@@ -19,7 +19,7 @@ const seed = async () => {
 			password: '123',
 		});
 
-		// console.log(Object.keys(betsy.__proto__));
+		console.log(Object.keys(betsy.__proto__));
 	} catch (err) {
 		console.log(err);
 	}

@@ -1,12 +1,12 @@
 /** @format */
 
 const router = require('express').Router();
-const { User, Map, Location } = require('../db');
+const { User, Mapp, Location } = require('../db');
 
 //get all maps for one user
 router.get('/', async (req, res, next) => {
 	try {
-		let maps = await Map.findAll({
+		let maps = await Mapp.findAll({
 			where: {
 				userId: req.user.id,
 			},
@@ -22,8 +22,8 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
-		const map = await map.create(req.body);
-		await user.update(user.addMap(map));
+		const map = await Mapp.create(req.body);
+		await user.update(user.addMapp(map));
 		res.json(map);
 	} catch (err) {
 		next(err);

@@ -2,18 +2,18 @@
 
 const db = require('./db');
 const User = require('./user');
-const Map = require('./map');
+const Mapp = require('./map');
 const Location = require('./location');
 
 //associations
-Map.belongsTo(User);
-User.hasMany(Map);
+Mapp.belongsTo(User);
+User.hasMany(Mapp);
 
-Location.belongsTo(Map);
-Map.hasMany(Location);
+Location.belongsTo(Mapp);
+Mapp.hasMany(Location);
 
 module.exports = {
 	db,
 	User,
-	Map,
+	Mapp,
 };
