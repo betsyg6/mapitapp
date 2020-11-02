@@ -13,7 +13,7 @@ const NavBar = ({ isLoggedIn, handleClick }) => {
 					<a href="#" onClick={handleClick}>
 						Logout
 					</a>
-
+					<NavLink to="/createanewmap">New Map</NavLink>
 					<NavLink to="/home">Home</NavLink>
 				</nav>
 			) : (

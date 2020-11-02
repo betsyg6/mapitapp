@@ -7,7 +7,6 @@ import { createLogger } from 'redux-logger'; // https://github.com/evgenyrodiono
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import userReducer from './user';
-import locationsReducer from './locations';
 import mapReducer from './map';
 
 let middleware = [
@@ -23,7 +22,6 @@ let middleware = [
 
 const rootReducer = combineReducers({
 	user: userReducer,
-	locations: locationsReducer,
 	map: mapReducer,
 });
 

@@ -16,4 +16,5 @@ module.exports = {
 	db,
 	User,
 	Mapp,
+	Location,
 };

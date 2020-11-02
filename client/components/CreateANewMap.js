@@ -8,7 +8,8 @@ import nextId from 'react-id-generator';
 import PrintControlDefault from 'react-leaflet-easyprint';
 const PrintControl = withLeaflet(PrintControlDefault);
 import { connect } from 'react-redux';
-import { get, add } from '../store/locations';
+import { get, add, addAMap } from '../store/map';
+import { me } from '../store/user';
 
 // export const food = new L.Icon({
 // 	iconUrl: './restaurant-outline.svg',
@@ -24,7 +25,7 @@ import { get, add } from '../store/locations';
 // 	),
 // });
 
-class CreateAMap extends React.Component {
+class CreateANewMap extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -36,17 +37,29 @@ class CreateAMap extends React.Component {
 			location: [],
 			showMenu: false,
 			icon: 'heart',
+			mapAdded: false,
+			city: '',
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.findMe = this.findMe.bind(this);
+		this.addMap = this.addMap.bind(this);
 		// this.menuToggle = this.menuToggle.bind(this);
 	}
 
 	// menuToggle() {
 	// 	this.setState({ showMenu: !this.state.showMenu });
 	// }
+
+	addMap() {
+		let obj = { city: this.state.city };
+		this.props.addAMap(obj);
+		//add conditional for if the thunk was successful
+		this.setState({
+			mapAdded: true,
+		});
+	}
 
 	findMe() {
 		navigator.geolocation.getCurrentPosition((position) => {
@@ -62,14 +75,11 @@ class CreateAMap extends React.Component {
 		let obj = {};
 		let latt = coords.lat;
 		let long = coords.lng;
-		obj.lat = latt;
-		obj.lng = long;
-		obj.position = [latt, long];
-		obj.id = nextId();
+		obj.latitude = latt.toString();
+		obj.longitude = long.toString();
 
-		let description = this.state.description;
-		description.push(obj);
-		this.setState({ ...description, lat: coords.lat, lng: coords.lng });
+		this.props.addLocation(obj, this.props.map.id);
+		this.props.getMap(this.props.map.id);
 	}
 
 	handleChange(event) {
@@ -107,100 +117,122 @@ class CreateAMap extends React.Component {
 			),
 		});
 
-		console.log(
-			'description',
-			this.state.description.length > 0 && console.log(this.state.description)
-		);
+		console.log('map', this.props.map);
+		//this might need to be in a component did update?
+		// if (this.props.map && this.props.map.id) {
+		// 	this.props.getMap(this.props.map.id);
+		// }
 
 		return (
 			<div>
-				<p>Click on the map to add a marker!</p>
+				{this.state.mapAdded ? (
+					<div>
+						<p>Click on the map to add a marker!</p>
 
-				<div id="buttonContainer">
-					<button id="findMe" onClick={this.findMe}>
-						Find me!
-					</button>
-				</div>
+						<div id="buttonContainer">
+							<button id="findMe" onClick={this.findMe}>
+								Find me!
+							</button>
+						</div>
 
-				{/* <div className={this.state.showMenu ? 'showMenu' : 'hideMenu'}>
+						{/* <div className={this.state.showMenu ? 'showMenu' : 'hideMenu'}>
 					<p>icon options!</p>
 				</div>
 				<button type="button" onClick={this.menuToggle}>*</button> */}
 
-				<Map
-					center={[this.state.lat, this.state.lng]}
-					zoom={13}
-					onClick={this.handleClick}
-				>
-					<TileLayer
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-					/>
+						<Map
+							center={[this.state.lat, this.state.lng]}
+							zoom={13}
+							onClick={this.handleClick}
+						>
+							<TileLayer
+								url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+								attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+							/>
 
-					{this.state.description.length > 0 &&
-						this.state.description.map((obj) => (
-							<Marker
-								key={`marker-${obj.id}`}
-								position={obj.position}
-								icon={obj.icon === 'Favorite Bars' ? bar : heart}
-							>
-								<Popup>
-									{obj.title ? (
-										<div>
-											<p>{obj.title}</p>
-											<img src={obj.imageUrl} alt="" />
-										</div>
-									) : (
-										<form onSubmit={this.handleSubmit}>
-											<input
-												name="title"
-												type="text"
-												placeholder="title"
-												onChange={this.handleChange}
-											/>
-											<input
-												name="imageUrl"
-												type="text"
-												placeholder="imageUrl"
-												onChange={this.handleChange}
-											/>
-											<select
-												name="icon"
-												value={this.state.icon}
-												onChange={this.handleChange}
-											>
-												<option>Places I Love</option>
-												<option>Favorite Bars</option>
-											</select>
-											<button type="submit">Submit</button>
-										</form>
-									)}
-
-									<button
-										type="button"
-										onClick={() => {
-											const filtered = this.state.description.filter(
-												(object) => {
-													return object.id !== obj.id;
-												}
-											);
-											this.setState({ description: filtered });
-										}}
+							{this.props.locations &&
+								this.props.locations.length > 0 &&
+								this.props.locations.map((obj) => (
+									<Marker
+										key={`marker-${obj.id}`}
+										position={[Number(obj.latitude), Number(obj.longitude)]}
+										icon={obj.icon === 'Favorite Bars' ? bar : heart}
 									>
-										Delete
-									</button>
-								</Popup>
-							</Marker>
-						))}
+										<Popup>
+											{obj.title ? (
+												<div>
+													<p>{obj.title}</p>
+													<img src={obj.imageUrl} alt="" />
+												</div>
+											) : (
+												<form onSubmit={this.handleSubmit}>
+													<input
+														name="title"
+														type="text"
+														placeholder="title"
+														onChange={this.handleChange}
+													/>
+													<input
+														name="imageUrl"
+														type="text"
+														placeholder="imageUrl"
+														onChange={this.handleChange}
+													/>
+													<select
+														name="icon"
+														value={this.state.icon}
+														onChange={this.handleChange}
+													>
+														<option>Places I Love</option>
+														<option>Favorite Bars</option>
+													</select>
+													<button type="submit">Submit</button>
+												</form>
+											)}
 
-					<PrintControl
-						position="topleft"
-						sizeModes={['Current', 'A4Portrait', 'A4Landscape']}
-						hideControlContainer={false}
-						title="Export as PNG"
-						exportOnly
-					/>
-				</Map>
+											<button
+												type="button"
+												onClick={() => {
+													const filtered = this.state.description.filter(
+														(object) => {
+															return object.id !== obj.id;
+														}
+													);
+													this.setState({ description: filtered });
+												}}
+											>
+												Delete
+											</button>
+										</Popup>
+									</Marker>
+								))}
+
+							<PrintControl
+								position="topleft"
+								sizeModes={['Current', 'A4Portrait', 'A4Landscape']}
+								hideControlContainer={false}
+								title="Export as PNG"
+								exportOnly
+							/>
+						</Map>
+					</div>
+				) : (
+					<div>
+						<p>Add a Map!</p>
+
+						<form>
+							<input
+								name="city"
+								type="text"
+								placeholder="City"
+								onChange={this.handleChange}
+							/>
+							<button type="button" onClick={this.addMap}>
+								Add
+							</button>
+						</form>
+					</div>
+				)}
 			</div>
 		);
 	}
@@ -208,18 +240,21 @@ class CreateAMap extends React.Component {
 
 const mapState = (state) => {
 	return {
-		locations: state.locations,
+		user: state.user,
+		map: state.map,
 	};
 };
 
 const mapDispatch = (dispatch) => {
 	return {
-		get: (mapId) => dispatch(get(mapId)),
-		add: (obj, mapId) => dispatch(add(obj, mapId)),
+		getMap: (mapId) => dispatch(get(mapId)),
+		addLocation: (obj, mapId) => dispatch(add(obj, mapId)),
+		addAMap: (obj) => dispatch(addAMap(obj)),
+		me: () => dispatch(me()),
 	};
 };
 
-export default connect(mapState, mapDispatch)(CreateAMap);
+export default connect(mapState, mapDispatch)(CreateANewMap);
 
 //view all popups?
 //icons

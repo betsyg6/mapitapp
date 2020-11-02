@@ -1,7 +1,7 @@
 /** @format */
 
 const router = require('express').Router();
-const { User, Map, Location } = require('../db');
+const { User, Mapp, Location } = require('../db');
 
 //get user's info
 router.get('/me', async (req, res, next) => {
@@ -9,7 +9,13 @@ router.get('/me', async (req, res, next) => {
 		if (!req.session.userId) {
 			res.sendStatus(401);
 		} else {
-			const user = await User.findById(req.session.userId);
+			const user = await User.findById(req.session.userId, {
+				include: [
+					{
+						model: Mapp,
+					},
+				],
+			});
 			if (!user) {
 				res.sendStatus(401);
 			} else {
@@ -26,6 +32,11 @@ router.post('/login', async (req, res, next) => {
 	try {
 		const user = await User.findOne({
 			where: { email: req.body.email },
+			include: [
+				{
+					model: Mapp,
+				},
+			],
 		});
 		if (!user) {
 			console.log('No such user found:', req.body.email);

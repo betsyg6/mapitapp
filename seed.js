@@ -1,6 +1,6 @@
 /** @format */
 
-const { db, User, Mapp } = require('./server/db');
+const { db, User, Mapp, Location } = require('./server/db');
 
 const seed = async () => {
 	try {
@@ -19,7 +19,19 @@ const seed = async () => {
 			password: '123',
 		});
 
-		console.log(Object.keys(betsy.__proto__));
+		const newYork = await Mapp.create({
+			city: 'New York',
+		});
+
+		const locash = await Location.create({
+			latitude: '40.725193570639945',
+			longitude: '-73.95635596586763',
+		});
+
+		await betsy.addMap(newYork);
+		await newYork.addLocation(locash);
+
+		console.log(Object.keys(newYork.__proto__));
 	} catch (err) {
 		console.log(err);
 	}

@@ -12,9 +12,9 @@ router.get('/:id', async (req, res, next) => {
 			include: [
 				{
 					model: Location,
-					where: {
-						mapId: req.params.id,
-					},
+					// where: {
+					// 	mapId: req.params.id,
+					// },
 				},
 			],
 		});
@@ -29,8 +29,8 @@ router.post('/map', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
 		const map = await Mapp.create(req.body);
-		await user.update(user.setMapp(map));
-		res.json(user);
+		await user.update(user.addMap(map));
+		res.json(map);
 	} catch (err) {
 		next(err);
 	}
@@ -40,9 +40,10 @@ router.post('/map', async (req, res, next) => {
 router.post('/:id', async (req, res, next) => {
 	try {
 		let map = await Mapp.findByPk(req.params.id);
+
 		let newLocation = await Location.create(req.body);
 		await map.update(map.addLocation(newLocation));
-		res.json(map);
+		res.json(newLocation);
 	} catch (err) {
 		next(err);
 	}
