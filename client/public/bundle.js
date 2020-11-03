@@ -2467,13 +2467,17 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.state.description.forEach(function (obj) {
-        _this2.props.addLocation({
-          latitude: obj.latitude.toString(),
-          longitude: obj.longitude.toString(),
-          title: obj.title,
-          imageUrl: obj.imageUrl,
-          icon: obj.icon
-        }, _this2.props.map.id);
+        if (!obj.saved) {
+          _this2.props.addLocation({
+            latitude: obj.latitude.toString(),
+            longitude: obj.longitude.toString(),
+            title: obj.title,
+            imageUrl: obj.imageUrl,
+            icon: obj.icon
+          }, _this2.props.map.id);
+
+          obj.saved = true;
+        }
       }); //need to make it so it doesn't re-save any that have already been saved
     }
   }, {

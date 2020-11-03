@@ -55,16 +55,19 @@ class CreateANewMap extends React.Component {
 
 	handleSave() {
 		this.state.description.forEach((obj) => {
-			this.props.addLocation(
-				{
-					latitude: obj.latitude.toString(),
-					longitude: obj.longitude.toString(),
-					title: obj.title,
-					imageUrl: obj.imageUrl,
-					icon: obj.icon,
-				},
-				this.props.map.id
-			);
+			if (!obj.saved) {
+				this.props.addLocation(
+					{
+						latitude: obj.latitude.toString(),
+						longitude: obj.longitude.toString(),
+						title: obj.title,
+						imageUrl: obj.imageUrl,
+						icon: obj.icon,
+					},
+					this.props.map.id
+				);
+				obj.saved = true;
+			}
 		});
 		//need to make it so it doesn't re-save any that have already been saved
 	}
