@@ -69,7 +69,6 @@ class CreateANewMap extends React.Component {
 				obj.saved = true;
 			}
 		});
-		//need to make it so it doesn't re-save any that have already been saved
 	}
 
 	addMap() {
@@ -103,14 +102,6 @@ class CreateANewMap extends React.Component {
 		let description = this.state.description;
 		description.push(obj);
 		this.setState({ ...description, lat: coords.lat, lng: coords.lng });
-
-		// obj.latitude = latt.toString();
-		// obj.longitude = long.toString();
-
-		// this.props.addLocation(obj, this.props.map.id);
-		// this.props.getMap(this.props.map.id);
-
-		//i wonder if it's easier to keep it the way it was originally, and when you click a save button, map through description and save each location/associate to the map
 	}
 
 	handleChange(event) {
@@ -151,7 +142,7 @@ class CreateANewMap extends React.Component {
 		});
 
 		console.log('map', this.props.map);
-		console.log('user', this.props.user);
+		
 
 		return (
 			<div>
@@ -179,12 +170,6 @@ class CreateANewMap extends React.Component {
 								url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 								attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 							/>
-
-							{/* this.props.map.locations &&
-								this.props.map.locations.length > 0 &&
-								this.props.map.locations */}
-
-							{/* [Number(obj.latitude), Number(obj.longitude)] */}
 
 							{this.state.description.length > 0 &&
 								this.state.description.map((obj) => (
@@ -297,3 +282,4 @@ export default connect(mapState, mapDispatch)(CreateANewMap);
 
 //view all popups?
 //icons
+//delete all popups?

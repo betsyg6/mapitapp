@@ -2478,7 +2478,7 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
 
           obj.saved = true;
         }
-      }); //need to make it so it doesn't re-save any that have already been saved
+      });
     }
   }, {
     key: "addMap",
@@ -2520,11 +2520,7 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
       this.setState(_objectSpread(_objectSpread({}, description), {}, {
         lat: coords.lat,
         lng: coords.lng
-      })); // obj.latitude = latt.toString();
-      // obj.longitude = long.toString();
-      // this.props.addLocation(obj, this.props.map.id);
-      // this.props.getMap(this.props.map.id);
-      //i wonder if it's easier to keep it the way it was originally, and when you click a save button, map through description and save each location/associate to the map
+      }));
     }
   }, {
     key: "handleChange",
@@ -2570,7 +2566,6 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
         }))
       });
       console.log('map', this.props.map);
-      console.log('user', this.props.user);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.mapAdded ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Click on the map to add a marker!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         id: "buttonContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
@@ -2671,6 +2666,7 @@ var mapDispatch = function mapDispatch(dispatch) {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_6__.connect)(mapState, mapDispatch)(CreateANewMap)); //view all popups?
 //icons
+//delete all popups?
 
 /***/ }),
 
@@ -2711,15 +2707,17 @@ var Header = function Header() {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Home
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/map */ "./client/store/map.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2745,6 +2743,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 /** @format */
 
 
+
+
 var Home = /*#__PURE__*/function (_Component) {
   _inherits(Home, _Component);
 
@@ -2759,14 +2759,33 @@ var Home = /*#__PURE__*/function (_Component) {
   _createClass(Home, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Home!"));
+      console.log('user', this.props.user);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Hey, ", this.props.user.email, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "View Your Old Maps"), this.props.user.maps ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, this.props.user.maps.map(function (obj) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+          key: obj.id
+        }, obj.city);
+      })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "No Maps Yet!"));
     }
   }]);
 
   return Home;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
+var mapState = function mapState(state) {
+  return {
+    user: state.user
+  };
+};
 
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    getMap: function getMap(mapId) {
+      return dispatch((0,_store_map__WEBPACK_IMPORTED_MODULE_2__.get)(mapId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(Home));
 
 /***/ }),
 
