@@ -10,6 +10,7 @@ import Welcome from './Welcome';
 import Home from './Home';
 import Header from './Header';
 import CreateANewMap from './CreateANewMap';
+import SingleMap from './SingleMap';
 
 export default class Routes extends Component {
 	render() {
@@ -25,6 +26,7 @@ export default class Routes extends Component {
 						<Route path="/signup" component={Signup} />
 						<Route path="/home" component={Home} />
 						<Route path="/createanewmap" component={CreateANewMap} />
+						<Route path="/singlemap/:id" component={SingleMap} />
 					</Switch>
 				</div>
 			</Router>

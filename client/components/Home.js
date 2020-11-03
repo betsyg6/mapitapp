@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from '../store/map';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
 	render() {
@@ -16,7 +17,12 @@ class Home extends Component {
 				{this.props.user.maps ? (
 					<ul>
 						{this.props.user.maps.map((obj) => {
-							return <li key={obj.id}>{obj.city}</li>;
+							//make these into links that you can click and it takes you to the map
+							return (
+								<Link to={`/singlemap/${obj.id}`} key={obj.id}>
+									<p>{obj.city}</p>
+								</Link>
+							);
 						})}
 					</ul>
 				) : (
