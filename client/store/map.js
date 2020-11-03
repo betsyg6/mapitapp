@@ -65,7 +65,12 @@ export default function mapReducer(state = defaultMap, action) {
 		case ADD_MAP:
 			return action.obj;
 		case ADD_LOCATION:
-			return { ...state, locations: [...state.locations, action.location] };
+			if (state.locations) {
+				return { ...state, locations: [...state.locations, action.location] };
+			} else {
+				return { ...state, locations: [action.location] };
+			}
+
 		default:
 			return state;
 	}

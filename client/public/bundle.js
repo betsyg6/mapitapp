@@ -2376,6 +2376,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2450,6 +2454,7 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
     _this.findMe = _this.findMe.bind(_assertThisInitialized(_this));
     _this.addMap = _this.addMap.bind(_assertThisInitialized(_this)); // this.menuToggle = this.menuToggle.bind(this);
 
+    _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
     return _this;
   } // menuToggle() {
   // 	this.setState({ showMenu: !this.state.showMenu });
@@ -2457,6 +2462,21 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
 
 
   _createClass(CreateANewMap, [{
+    key: "handleSave",
+    value: function handleSave() {
+      var _this2 = this;
+
+      this.state.description.forEach(function (obj) {
+        _this2.props.addLocation({
+          latitude: obj.latitude.toString(),
+          longitude: obj.longitude.toString(),
+          title: obj.title,
+          imageUrl: obj.imageUrl,
+          icon: obj.icon
+        }, _this2.props.map.id);
+      }); //need to make it so it doesn't re-save any that have already been saved
+    }
+  }, {
     key: "addMap",
     value: function addMap() {
       var obj = {
@@ -2471,10 +2491,10 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "findMe",
     value: function findMe() {
-      var _this2 = this;
+      var _this3 = this;
 
       navigator.geolocation.getCurrentPosition(function (position) {
-        _this2.setState({
+        _this3.setState({
           lat: position.coords.latitude,
           lng: position.coords.longitude
         });
@@ -2487,10 +2507,20 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
       var obj = {};
       var latt = coords.lat;
       var _long = coords.lng;
-      obj.latitude = latt.toString();
-      obj.longitude = _long.toString();
-      this.props.addLocation(obj, this.props.map.id);
-      this.props.getMap(this.props.map.id);
+      obj.latitude = latt;
+      obj.longitude = _long;
+      obj.position = [latt, _long];
+      obj.id = (0,react_id_generator__WEBPACK_IMPORTED_MODULE_3__.default)();
+      var description = this.state.description;
+      description.push(obj);
+      this.setState(_objectSpread(_objectSpread({}, description), {}, {
+        lat: coords.lat,
+        lng: coords.lng
+      })); // obj.latitude = latt.toString();
+      // obj.longitude = long.toString();
+      // this.props.addLocation(obj, this.props.map.id);
+      // this.props.getMap(this.props.map.id);
+      //i wonder if it's easier to keep it the way it was originally, and when you click a save button, map through description and save each location/associate to the map
     }
   }, {
     key: "handleChange",
@@ -2500,11 +2530,11 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       event.preventDefault();
       var obj = this.state.description.filter(function (obj) {
-        return obj.lat === _this3.state.lat && obj.lng === _this3.state.lng;
+        return obj.latitude === _this4.state.lat && obj.longitude === _this4.state.lng;
       });
       var icon = this.state.icon;
       var titleText = this.state.title;
@@ -2520,7 +2550,7 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       // 	// <i id="home" className="fa fa-home fa-2x" />
       var heart = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
@@ -2549,40 +2579,40 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.default, {
         url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors"
-      }), this.props.map.locations && this.props.map.locations.length > 0 && this.props.map.locations.map(function (obj) {
+      }), this.state.description.length > 0 && this.state.description.map(function (obj) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.default, {
           key: "marker-".concat(obj.id),
-          position: [Number(obj.latitude), Number(obj.longitude)],
+          position: obj.position,
           icon: obj.icon === 'Favorite Bars' ? bar : heart
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.default, null, obj.title ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: obj.imageUrl,
           alt: ""
         })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-          onSubmit: _this4.handleSubmit
+          onSubmit: _this5.handleSubmit
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "title",
           type: "text",
           placeholder: "title",
-          onChange: _this4.handleChange
+          onChange: _this5.handleChange
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "imageUrl",
           type: "text",
           placeholder: "imageUrl",
-          onChange: _this4.handleChange
+          onChange: _this5.handleChange
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
           name: "icon",
-          value: _this4.state.icon,
-          onChange: _this4.handleChange
+          value: _this5.state.icon,
+          onChange: _this5.handleChange
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Places I Love"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Favorite Bars")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "submit"
         }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "button",
           onClick: function onClick() {
-            var filtered = _this4.state.description.filter(function (object) {
+            var filtered = _this5.state.description.filter(function (object) {
               return object.id !== obj.id;
             });
 
-            _this4.setState({
+            _this5.setState({
               description: filtered
             });
           }
@@ -2593,7 +2623,10 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
         hideControlContainer: false,
         title: "Export as PNG",
         exportOnly: true
-      }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Add a Map!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        type: "button",
+        onClick: this.handleSave
+      }, "Save")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Add a Map!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         name: "city",
         type: "text",
         placeholder: "City",
@@ -3431,9 +3464,15 @@ function mapReducer() {
       return action.obj;
 
     case ADD_LOCATION:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        locations: [].concat(_toConsumableArray(state.locations), [action.location])
-      });
+      if (state.locations) {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          locations: [].concat(_toConsumableArray(state.locations), [action.location])
+        });
+      } else {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          locations: [action.location]
+        });
+      }
 
     default:
       return state;
