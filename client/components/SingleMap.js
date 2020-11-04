@@ -183,12 +183,14 @@ class SingleMap extends React.Component {
 													type="text"
 													placeholder="title"
 													onChange={this.handleChange}
+													required
 												/>
 												<input
 													name="imageUrl"
 													type="text"
 													placeholder="imageUrl"
 													onChange={this.handleChange}
+													required
 												/>
 												<select
 													name="icon"

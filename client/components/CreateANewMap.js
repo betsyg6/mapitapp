@@ -142,7 +142,6 @@ class CreateANewMap extends React.Component {
 		});
 
 		console.log('map', this.props.map);
-		
 
 		return (
 			<div>
@@ -191,12 +190,14 @@ class CreateANewMap extends React.Component {
 														type="text"
 														placeholder="title"
 														onChange={this.handleChange}
+														required
 													/>
 													<input
 														name="imageUrl"
 														type="text"
 														placeholder="imageUrl"
 														onChange={this.handleChange}
+														required
 													/>
 													<select
 														name="icon"

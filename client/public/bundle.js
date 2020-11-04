@@ -2302,12 +2302,14 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
           name: "title",
           type: "text",
           placeholder: "title",
-          onChange: _this4.handleChange
+          onChange: _this4.handleChange,
+          required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "imageUrl",
           type: "text",
           placeholder: "imageUrl",
-          onChange: _this4.handleChange
+          onChange: _this4.handleChange,
+          required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
           name: "icon",
           value: _this4.state.icon,
