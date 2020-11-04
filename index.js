@@ -8,8 +8,8 @@ const passport = require('passport');
 const port = process.env.PORT || 3000;
 const db = require('./server/db/db');
 const path = require('path');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const sessionStore = new SequelizeStore({ db });
+// const SequelizeStore = require('connect-session-sequelize')(session.Store);
+// const sessionStore = new SequelizeStore(db);
 
 //socket
 // const server = require('http').createServer(app);
@@ -39,7 +39,7 @@ app.use(
 	session({
 		secret: 'This is not a very secure secret...',
 		resave: false,
-		store: sessionStore,
+		// store: sessionStore,
 		saveUninitialized: false,
 	})
 );
@@ -59,7 +59,7 @@ app.get('*', function (req, res, next) {
 });
 
 async () => {
-	await sessionStore.sync();
+	// await sessionStore.sync();
 	await db.sync({ force: true });
 };
 
