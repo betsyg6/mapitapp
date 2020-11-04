@@ -37,10 +37,8 @@ class SingleMap extends React.Component {
 		const num = Number(this.props.match.params.id);
 		this.props.getMap(num);
 
-		// this.setState({
-		// 	lat: this.props.map.locations[0].latitude,
-		// 	lng: this.props.map.locations[0].longitude,
-		// });
+		//this is showing that the session isnt persisting
+		this.props.me();
 	}
 
 	handleSave() {
@@ -122,8 +120,7 @@ class SingleMap extends React.Component {
 			),
 		});
 
-		console.log('map', this.props.map);
-		console.log('locations', this.props.map.locations);
+		
 
 		return (
 			<div>

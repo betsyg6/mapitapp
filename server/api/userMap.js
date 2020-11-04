@@ -8,6 +8,7 @@ const { User, Mapp, Location } = require('../db');
 //get one map and it's locations
 router.get('/:id', async (req, res, next) => {
 	try {
+		console.log('req session', req.session.passport);
 		let map = await Mapp.findByPk(req.params.id, {
 			include: [
 				{
@@ -92,6 +93,7 @@ router.delete('/map/:id', async (req, res, next) => {
 });
 
 //update a location
+//this needs to be fixed because it logs out the user
 router.put('/map/:id', async (req, res, next) => {
 	try {
 		const location = await Location.findByPk(req.params.id);

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { logout } from '../store/user';
 
 const NavBar = ({ isLoggedIn, handleClick }) => {
+	console.log(isLoggedIn);
 	return (
 		<div>
 			{isLoggedIn ? (

@@ -6,10 +6,10 @@ const { User, Mapp, Location } = require('../db');
 //get user's info
 router.get('/me', async (req, res, next) => {
 	try {
-		if (!req.session.userId) {
+		if (!req.session.passport.user) {
 			res.sendStatus(401);
 		} else {
-			const user = await User.findById(req.session.userId, {
+			const user = await User.findByPk(req.session.passport.user, {
 				include: [
 					{
 						model: Mapp,

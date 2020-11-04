@@ -2975,6 +2975,7 @@ __webpack_require__.r(__webpack_exports__);
 var NavBar = function NavBar(_ref) {
   var isLoggedIn = _ref.isLoggedIn,
       handleClick = _ref.handleClick;
+  console.log(isLoggedIn);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
     id: "nav-container",
     className: "text-link"
@@ -3362,10 +3363,9 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var num = Number(this.props.match.params.id);
-      this.props.getMap(num); // this.setState({
-      // 	lat: this.props.map.locations[0].latitude,
-      // 	lng: this.props.map.locations[0].longitude,
-      // });
+      this.props.getMap(num); //this is showing that the session isnt persisting
+
+      this.props.me();
     }
   }, {
     key: "handleSave",
@@ -3459,8 +3459,6 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
           className: "fa fa-glass-martini fa-2x"
         }))
       });
-      console.log('map', this.props.map);
-      console.log('locations', this.props.map.locations);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, this.props.map.city), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         id: "buttonContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
