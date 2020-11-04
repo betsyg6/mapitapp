@@ -6,6 +6,7 @@ const GET_MAP = 'GET_MAP';
 const ADD_LOCATION = 'ADD_LOCATION';
 const REMOVE_LOCATION = 'REMOVE_LOCATION';
 const ADD_MAP = 'ADD_MAP';
+const UPDATE_LOCATION = 'UPDATE_LOCATION';
 
 const getMap = (map) => ({ type: GET_MAP, map });
 const addLocation = (obj, mapId) => ({
@@ -15,6 +16,7 @@ const addLocation = (obj, mapId) => ({
 });
 const addMap = (obj) => ({ type: ADD_MAP, obj });
 const removeLocation = (locationId) => ({ type: REMOVE_LOCATION, locationId });
+const updateLocation = (obj) => ({ type: UPDATE_LOCATION, obj });
 
 //associate a map to a user
 export const addAMap = (obj) => {
@@ -37,6 +39,7 @@ export const get = (mapId) => async (dispatch) => {
 	}
 };
 
+//associate location to a map
 export const add = (obj, mapId) => async (dispatch) => {
 	try {
 		const res = await axios.post(`/api/userMap/${mapId}`, obj);
@@ -56,6 +59,16 @@ export const remove = (locationId) => async (dispatch) => {
 	}
 };
 
+//update a location in the db
+export const update = (id, obj) => async (dispatch) => {
+	try {
+		await axios.put(`/api/userMap/map/${id}`, obj);
+		dispatch(updateLocation(obj));
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 //this is getting a map and its locations inside the map
 const defaultMap = {};
 export default function mapReducer(state = defaultMap, action) {
@@ -70,6 +83,13 @@ export default function mapReducer(state = defaultMap, action) {
 			} else {
 				return { ...state, locations: [action.location] };
 			}
+		case UPDATE_LOCATION:
+			return {
+				...state,
+				title: action.obj.title,
+				imageUrl: action.obj.imageUrl,
+				icon: action.obj.icon,
+			};
 		case REMOVE_LOCATION:
 			let removed = [
 				...state.locations.filter((object) => {

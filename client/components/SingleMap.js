@@ -8,7 +8,7 @@ import nextId from 'react-id-generator';
 import PrintControlDefault from 'react-leaflet-easyprint';
 const PrintControl = withLeaflet(PrintControlDefault);
 import { connect } from 'react-redux';
-import { get, add, remove } from '../store/map';
+import { get, add, remove, update } from '../store/map';
 import { me } from '../store/user';
 
 class SingleMap extends React.Component {
@@ -156,8 +156,46 @@ class SingleMap extends React.Component {
 								>
 									<Popup>
 										<div>
-											<p>{obj.title}</p>
-											<img src={obj.imageUrl} alt="" />
+											{obj.title ? (
+												<div>
+													<p>{obj.title}</p>
+													<img src={obj.imageUrl} alt="" />
+												</div>
+											) : (
+												<form
+													onSubmit={() =>
+														this.props.update(obj.id, {
+															title: this.state.title,
+															imageUrl: this.state.imageUrl,
+															icon: this.state.icon,
+														})
+													}
+												>
+													<input
+														name="title"
+														type="text"
+														placeholder="title"
+														onChange={this.handleChange}
+														required
+													/>
+													<input
+														name="imageUrl"
+														type="text"
+														placeholder="imageUrl"
+														onChange={this.handleChange}
+														required
+													/>
+													<select
+														name="icon"
+														value={this.state.icon}
+														onChange={this.handleChange}
+													>
+														<option>Places I Love</option>
+														<option>Favorite Bars</option>
+													</select>
+													<button type="submit">Submit</button>
+												</form>
+											)}
 
 											<button
 												type="button"
@@ -261,6 +299,7 @@ const mapDispatch = (dispatch) => {
 		addLocation: (obj, mapId) => dispatch(add(obj, mapId)),
 		me: () => dispatch(me()),
 		remove: (id) => dispatch(remove(id)),
+		update: (id, obj) => dispatch(update(id, obj)),
 	};
 };
 

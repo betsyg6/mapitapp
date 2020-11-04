@@ -3478,10 +3478,36 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
           key: "marker-".concat(obj.id),
           position: [obj.latitude, obj.longitude],
           icon: obj.icon === 'Favorite Bars' ? bar : heart
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, obj.title ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: obj.imageUrl,
           alt: ""
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+          onSubmit: function onSubmit() {
+            return _this5.props.update(obj.id, {
+              title: _this5.state.title,
+              imageUrl: _this5.state.imageUrl,
+              icon: _this5.state.icon
+            });
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+          name: "title",
+          type: "text",
+          placeholder: "title",
+          onChange: _this5.handleChange,
+          required: true
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+          name: "imageUrl",
+          type: "text",
+          placeholder: "imageUrl",
+          onChange: _this5.handleChange,
+          required: true
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
+          name: "icon",
+          value: _this5.state.icon,
+          onChange: _this5.handleChange
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Places I Love"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Favorite Bars")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          type: "submit"
+        }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "button",
           onClick: function onClick() {
             _this5.props.remove(obj.id);
@@ -3563,6 +3589,9 @@ var mapDispatch = function mapDispatch(dispatch) {
     },
     remove: function remove(id) {
       return dispatch((0,_store_map__WEBPACK_IMPORTED_MODULE_7__.remove)(id));
+    },
+    update: function update(id, obj) {
+      return dispatch((0,_store_map__WEBPACK_IMPORTED_MODULE_7__.update)(id, obj));
     }
   };
 };
@@ -3634,6 +3663,7 @@ var history =  false ? 0 : (0,history__WEBPACK_IMPORTED_MODULE_0__.createBrowser
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export get [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export remove [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export update [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -3645,6 +3675,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "get": () => /* binding */ get,
 /* harmony export */   "add": () => /* binding */ add,
 /* harmony export */   "remove": () => /* binding */ remove,
+/* harmony export */   "update": () => /* binding */ update,
 /* harmony export */   "default": () => /* binding */ mapReducer
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -3677,6 +3708,7 @@ var GET_MAP = 'GET_MAP';
 var ADD_LOCATION = 'ADD_LOCATION';
 var REMOVE_LOCATION = 'REMOVE_LOCATION';
 var ADD_MAP = 'ADD_MAP';
+var UPDATE_LOCATION = 'UPDATE_LOCATION';
 
 var getMap = function getMap(map) {
   return {
@@ -3704,6 +3736,13 @@ var removeLocation = function removeLocation(locationId) {
   return {
     type: REMOVE_LOCATION,
     locationId: locationId
+  };
+};
+
+var updateLocation = function updateLocation(obj) {
+  return {
+    type: UPDATE_LOCATION,
+    obj: obj
   };
 }; //associate a map to a user
 
@@ -3779,7 +3818,8 @@ var get = function get(mapId) {
       return _ref2.apply(this, arguments);
     };
   }();
-};
+}; //associate location to a map
+
 var add = function add(obj, mapId) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
@@ -3850,6 +3890,41 @@ var remove = function remove(locationId) {
       return _ref4.apply(this, arguments);
     };
   }();
+}; //update a location in the db
+
+var update = function update(id, obj) {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dispatch) {
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _context5.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/userMap/map/".concat(id), obj);
+
+            case 3:
+              dispatch(updateLocation(obj));
+              _context5.next = 9;
+              break;
+
+            case 6:
+              _context5.prev = 6;
+              _context5.t0 = _context5["catch"](0);
+              console.log(_context5.t0);
+
+            case 9:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[0, 6]]);
+    }));
+
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
 }; //this is getting a map and its locations inside the map
 
 var defaultMap = {};
@@ -3874,6 +3949,13 @@ function mapReducer() {
           locations: [action.location]
         });
       }
+
+    case UPDATE_LOCATION:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        title: action.obj.title,
+        imageUrl: action.obj.imageUrl,
+        icon: action.obj.icon
+      });
 
     case REMOVE_LOCATION:
       var removed = _toConsumableArray(state.locations.filter(function (object) {

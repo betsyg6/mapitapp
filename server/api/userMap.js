@@ -91,4 +91,15 @@ router.delete('/map/:id', async (req, res, next) => {
 	}
 });
 
+//update a location
+router.put('/map/:id', async (req, res, next) => {
+	try {
+		const location = await Location.findByPk(req.params.id);
+		const updateLocation = await location.update(req.body);
+		res.json(updateLocation);
+	} catch (error) {
+		next(error);
+	}
+});
+
 module.exports = router;
