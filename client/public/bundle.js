@@ -2567,7 +2567,6 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
           className: "fa fa-glass-martini fa-2x"
         }))
       });
-      console.log('map', this.props.map);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.mapAdded ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Click on the map to add a marker!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         id: "buttonContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
@@ -2594,12 +2593,14 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
           name: "title",
           type: "text",
           placeholder: "title",
-          onChange: _this5.handleChange
+          onChange: _this5.handleChange,
+          required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "imageUrl",
           type: "text",
           placeholder: "imageUrl",
-          onChange: _this5.handleChange
+          onChange: _this5.handleChange,
+          required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
           name: "icon",
           value: _this5.state.icon,
@@ -2770,8 +2771,8 @@ var Home = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log('user', this.props.user);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Hey, ", this.props.user.email, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "View Your Old Maps"), this.props.maps ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, this.props.maps.map(function (obj) {
+      console.log('maps', this.props.maps);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Hey, ", this.props.user.email, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "View Your Old Maps"), this.props.maps.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, this.props.maps.map(function (obj) {
         //make these into links that you can click and it takes you to the map
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           to: "/singlemap/".concat(obj.id),
@@ -3485,12 +3486,14 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
           name: "title",
           type: "text",
           placeholder: "title",
-          onChange: _this5.handleChange
+          onChange: _this5.handleChange,
+          required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "imageUrl",
           type: "text",
           placeholder: "imageUrl",
-          onChange: _this5.handleChange
+          onChange: _this5.handleChange,
+          required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
           name: "icon",
           value: _this5.state.icon,

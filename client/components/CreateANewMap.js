@@ -141,7 +141,7 @@ class CreateANewMap extends React.Component {
 			),
 		});
 
-		console.log('map', this.props.map);
+
 
 		return (
 			<div>

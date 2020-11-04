@@ -16,14 +16,14 @@ class Home extends Component {
 	}
 
 	render() {
-		console.log('user', this.props.user);
+		console.log('maps', this.props.maps);
 		return (
 			<div>
 				<h1>Hey, {this.props.user.email}!</h1>
 
 				<h3>View Your Old Maps</h3>
 
-				{this.props.maps ? (
+				{this.props.maps.length > 0 ? (
 					<ul>
 						{this.props.maps.map((obj) => {
 							//make these into links that you can click and it takes you to the map
