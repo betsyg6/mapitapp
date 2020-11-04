@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-//associate a map to a user
+// associate a map to a user
 router.post('/', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);

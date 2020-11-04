@@ -28,10 +28,10 @@ const seed = async () => {
 			longitude: '-73.95635596586763',
 		});
 
-		await betsy.addMap(newYork);
+		await betsy.addMapp(newYork);
 		await newYork.addLocation(locash);
 
-		console.log(Object.keys(newYork.__proto__));
+		console.log(Object.keys(betsy.__proto__));
 	} catch (err) {
 		console.log(err);
 	}

@@ -2718,7 +2718,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/map */ "./client/store/map.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _store_maps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/maps */ "./client/store/maps.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2747,24 +2748,30 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Home = /*#__PURE__*/function (_Component) {
   _inherits(Home, _Component);
 
   var _super = _createSuper(Home);
 
-  function Home() {
+  function Home(props) {
     _classCallCheck(this, Home);
 
-    return _super.apply(this, arguments);
+    return _super.call(this, props);
   }
 
   _createClass(Home, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchMaps();
+    }
+  }, {
     key: "render",
     value: function render() {
       console.log('user', this.props.user);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Hey, ", this.props.user.email, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "View Your Old Maps"), this.props.user.maps ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, this.props.user.maps.map(function (obj) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Hey, ", this.props.user.email, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "View Your Old Maps"), this.props.maps ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, this.props.maps.map(function (obj) {
         //make these into links that you can click and it takes you to the map
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           to: "/singlemap/".concat(obj.id),
           key: obj.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.city));
@@ -2777,14 +2784,15 @@ var Home = /*#__PURE__*/function (_Component) {
 
 var mapState = function mapState(state) {
   return {
-    user: state.user
+    user: state.user,
+    maps: state.maps
   };
 };
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    getMap: function getMap(mapId) {
-      return dispatch((0,_store_map__WEBPACK_IMPORTED_MODULE_2__.get)(mapId));
+    fetchMaps: function fetchMaps() {
+      return dispatch((0,_store_maps__WEBPACK_IMPORTED_MODULE_3__.fetchMaps)());
     }
   };
 };
@@ -3817,6 +3825,169 @@ function mapReducer() {
 
 /***/ }),
 
+/***/ "./client/store/maps.js":
+/*!******************************!*\
+  !*** ./client/store/maps.js ***!
+  \******************************/
+/*! namespace exports */
+/*! export addMapToMaps [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export fetchMaps [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchMaps": () => /* binding */ fetchMaps,
+/* harmony export */   "addMapToMaps": () => /* binding */ addMapToMaps,
+/* harmony export */   "default": () => /* binding */ mapsReducer
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/** @format */
+
+var GET_MAPS = 'GET_MAPS';
+var REMOVE_MAP = 'REMOVE_MAP';
+var ADD_MAP = 'ADD_MAP';
+
+var getMaps = function getMaps(arrOfObj) {
+  return {
+    type: GET_MAPS,
+    arrOfObj: arrOfObj
+  };
+};
+
+var addMap = function addMap(obj) {
+  return {
+    type: ADD_MAP,
+    obj: obj
+  };
+};
+
+var fetchMaps = function fetchMaps() {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+      var response;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/userMaps/");
+
+            case 2:
+              response = _context.sent;
+              dispatch(getMaps(response.data));
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+var addMapToMaps = function addMapToMaps(obj) {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
+      var response;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/userMaps/", obj);
+
+            case 3:
+              response = _context2.sent;
+              dispatch(addMap(response.data));
+              _context2.next = 10;
+              break;
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](0);
+              console.log(_context2.t0);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 7]]);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+}; // export const deleteMap = (id) => {
+// 	return async (dispatch, getState) => {
+// 		try {
+// 			await axios.delete(
+// 				`https://gobark-backend.herokuapp.com/api/photos/${id}`
+// 			);
+// 			dispatch({
+// 				type: REMOVE_PHOTOS,
+// 				id,
+// 				state: getState,
+// 			});
+// 		} catch (err) {
+// 			console.log(err);
+// 		}
+// 	};
+// };
+
+var maps = [];
+function mapsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : maps;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case GET_MAPS:
+      return action.arrOfObj;
+    // case REMOVE_PHOTOS:
+    // 	let removed = [
+    // 		...state.filter((object) => {
+    // 			return object.id !== action.id;
+    // 		}),
+    // 	];
+    // 	return removed;
+
+    case ADD_MAP:
+      return [].concat(_toConsumableArray(state), [action.obj]);
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
 /***/ "./client/store/store.js":
 /*!*******************************!*\
   !*** ./client/store/store.js ***!
@@ -3832,7 +4003,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-logger */ "./node_modules/redux-logger/dist/redux-logger.js");
@@ -3841,11 +4012,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user */ "./client/store/user.js");
 /* harmony import */ var _map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./map */ "./client/store/map.js");
+/* harmony import */ var _maps__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./maps */ "./client/store/maps.js");
 /** @format */
 
  //import appReducer from './store'
 
  // https://github.com/evgenyrodionov/redux-logger
+
 
 
 
@@ -3861,13 +4034,14 @@ redux_thunk__WEBPACK_IMPORTED_MODULE_3__.default.withExtraArgument({
 // 	middleware = [...middleware, createLogger({ collapsed: true })];
 // }
 
-var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_6__.combineReducers)({
+var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_7__.combineReducers)({
   user: _user__WEBPACK_IMPORTED_MODULE_4__.default,
-  map: _map__WEBPACK_IMPORTED_MODULE_5__.default
+  map: _map__WEBPACK_IMPORTED_MODULE_5__.default,
+  maps: _maps__WEBPACK_IMPORTED_MODULE_6__.default
 });
-var store = (0,redux__WEBPACK_IMPORTED_MODULE_6__.createStore)(rootReducer, // 👇 This uses the Redux DevTools extension, assuming you have it installed in your browser.
+var store = (0,redux__WEBPACK_IMPORTED_MODULE_7__.createStore)(rootReducer, // 👇 This uses the Redux DevTools extension, assuming you have it installed in your browser.
 // 👇 See: https://github.com/zalmoxisus/redux-devtools-extension
-(0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__.composeWithDevTools)(redux__WEBPACK_IMPORTED_MODULE_6__.applyMiddleware.apply(void 0, middleware)));
+(0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__.composeWithDevTools)(redux__WEBPACK_IMPORTED_MODULE_7__.applyMiddleware.apply(void 0, middleware)));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
 
 /***/ }),

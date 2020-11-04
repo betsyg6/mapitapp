@@ -29,7 +29,7 @@ router.post('/map', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
 		const map = await Mapp.create(req.body);
-		await user.update(user.addMap(map));
+		await user.update(user.addMapp(map));
 		res.json(map);
 	} catch (err) {
 		next(err);
