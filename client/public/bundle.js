@@ -2275,7 +2275,6 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
           className: "fa fa-glass-martini fa-2x"
         }))
       });
-      console.log('description', this.state.description.length > 0 && console.log(this.state.description));
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Click on the map to add a marker!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         id: "buttonContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
@@ -2771,13 +2770,21 @@ var Home = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       console.log('maps', this.props.maps);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Hey, ", this.props.user.email, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "View Your Old Maps"), this.props.maps.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, this.props.maps.map(function (obj) {
         //make these into links that you can click and it takes you to the map
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: "/singlemap/".concat(obj.id),
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           key: obj.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.city));
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          to: "/singlemap/".concat(obj.id)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.city)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          type: "button",
+          onClick: function onClick() {
+            return _this.props.deleteMap(obj.id);
+          }
+        }, "x"));
       })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "No Maps Yet!"));
     }
   }]);
@@ -2796,6 +2803,9 @@ var mapDispatch = function mapDispatch(dispatch) {
   return {
     fetchMaps: function fetchMaps() {
       return dispatch((0,_store_maps__WEBPACK_IMPORTED_MODULE_3__.fetchMaps)());
+    },
+    deleteMap: function deleteMap(id) {
+      return dispatch((0,_store_maps__WEBPACK_IMPORTED_MODULE_3__.deleteMap)(id));
     }
   };
 };
@@ -3471,7 +3481,12 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: obj.imageUrl,
           alt: ""
-        }))));
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          type: "button",
+          onClick: function onClick() {
+            _this5.props.remove(obj.id);
+          }
+        }, "Delete"))));
       }), this.state.description.length > 0 && this.state.description.map(function (obj) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.default, {
           key: "marker-".concat(obj.id),
@@ -3545,6 +3560,9 @@ var mapDispatch = function mapDispatch(dispatch) {
     },
     me: function me() {
       return dispatch((0,_store_user__WEBPACK_IMPORTED_MODULE_8__.me)());
+    },
+    remove: function remove(id) {
+      return dispatch((0,_store_map__WEBPACK_IMPORTED_MODULE_7__.remove)(id));
     }
   };
 };
@@ -3615,6 +3633,7 @@ var history =  false ? 0 : (0,history__WEBPACK_IMPORTED_MODULE_0__.createBrowser
 /*! export addAMap [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export get [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export remove [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -3625,6 +3644,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addAMap": () => /* binding */ addAMap,
 /* harmony export */   "get": () => /* binding */ get,
 /* harmony export */   "add": () => /* binding */ add,
+/* harmony export */   "remove": () => /* binding */ remove,
 /* harmony export */   "default": () => /* binding */ mapReducer
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -3678,8 +3698,14 @@ var addMap = function addMap(obj) {
     type: ADD_MAP,
     obj: obj
   };
-}; // const removeLocation = (locationId) => ({ type: REMOVE_LOCATION, locationId });
-//associate a map to a user
+};
+
+var removeLocation = function removeLocation(locationId) {
+  return {
+    type: REMOVE_LOCATION,
+    locationId: locationId
+  };
+}; //associate a map to a user
 
 
 var addAMap = function addAMap(obj) {
@@ -3789,16 +3815,42 @@ var add = function add(obj, mapId) {
       return _ref3.apply(this, arguments);
     };
   }();
-}; //havent written this yet...
-// export const remove = (locationId) => async (dispatch) => {
-// 	try {
-// 		const res = await axios.delete(`/api/userMap/${mapId}`);
-// 		dispatch(removeLocation());
-// 	} catch (err) {
-// 		console.log(err);
-// 	}
-// };
-//this is getting a map and its locations inside the map
+}; //remove a location from the db
+
+var remove = function remove(locationId) {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/api/userMap/map/".concat(locationId));
+
+            case 3:
+              dispatch(removeLocation(locationId));
+              _context4.next = 9;
+              break;
+
+            case 6:
+              _context4.prev = 6;
+              _context4.t0 = _context4["catch"](0);
+              console.log(_context4.t0);
+
+            case 9:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 6]]);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+}; //this is getting a map and its locations inside the map
 
 var defaultMap = {};
 function mapReducer() {
@@ -3823,6 +3875,15 @@ function mapReducer() {
         });
       }
 
+    case REMOVE_LOCATION:
+      var removed = _toConsumableArray(state.locations.filter(function (object) {
+        return object.id !== action.locationId;
+      }));
+
+      return _objectSpread(_objectSpread({}, state), {}, {
+        locations: removed
+      });
+
     default:
       return state;
   }
@@ -3837,6 +3898,7 @@ function mapReducer() {
 /*! namespace exports */
 /*! export addMapToMaps [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export deleteMap [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export fetchMaps [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
@@ -3847,6 +3909,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fetchMaps": () => /* binding */ fetchMaps,
 /* harmony export */   "addMapToMaps": () => /* binding */ addMapToMaps,
+/* harmony export */   "deleteMap": () => /* binding */ deleteMap,
 /* harmony export */   "default": () => /* binding */ mapsReducer
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -3950,23 +4013,45 @@ var addMapToMaps = function addMapToMaps(obj) {
       return _ref2.apply(this, arguments);
     };
   }();
-}; // export const deleteMap = (id) => {
-// 	return async (dispatch, getState) => {
-// 		try {
-// 			await axios.delete(
-// 				`https://gobark-backend.herokuapp.com/api/photos/${id}`
-// 			);
-// 			dispatch({
-// 				type: REMOVE_PHOTOS,
-// 				id,
-// 				state: getState,
-// 			});
-// 		} catch (err) {
-// 			console.log(err);
-// 		}
-// 	};
-// };
+};
+var deleteMap = function deleteMap(id) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch, getState) {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/api/userMap/".concat(id));
 
+            case 3:
+              dispatch({
+                type: REMOVE_MAP,
+                id: id,
+                state: getState
+              });
+              _context3.next = 9;
+              break;
+
+            case 6:
+              _context3.prev = 6;
+              _context3.t0 = _context3["catch"](0);
+              console.log(_context3.t0);
+
+            case 9:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0, 6]]);
+    }));
+
+    return function (_x3, _x4) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+};
 var maps = [];
 function mapsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : maps;
@@ -3975,13 +4060,13 @@ function mapsReducer() {
   switch (action.type) {
     case GET_MAPS:
       return action.arrOfObj;
-    // case REMOVE_PHOTOS:
-    // 	let removed = [
-    // 		...state.filter((object) => {
-    // 			return object.id !== action.id;
-    // 		}),
-    // 	];
-    // 	return removed;
+
+    case REMOVE_MAP:
+      var removed = _toConsumableArray(state.filter(function (object) {
+        return object.id !== action.id;
+      }));
+
+      return removed;
 
     case ADD_MAP:
       return [].concat(_toConsumableArray(state), [action.obj]);

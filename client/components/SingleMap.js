@@ -8,7 +8,7 @@ import nextId from 'react-id-generator';
 import PrintControlDefault from 'react-leaflet-easyprint';
 const PrintControl = withLeaflet(PrintControlDefault);
 import { connect } from 'react-redux';
-import { get, add, addAMap } from '../store/map';
+import { get, add, remove } from '../store/map';
 import { me } from '../store/user';
 
 class SingleMap extends React.Component {
@@ -158,6 +158,15 @@ class SingleMap extends React.Component {
 										<div>
 											<p>{obj.title}</p>
 											<img src={obj.imageUrl} alt="" />
+
+											<button
+												type="button"
+												onClick={() => {
+													this.props.remove(obj.id);
+												}}
+											>
+												Delete
+											</button>
 										</div>
 									</Popup>
 								</Marker>
@@ -251,6 +260,7 @@ const mapDispatch = (dispatch) => {
 		getMap: (mapId) => dispatch(get(mapId)),
 		addLocation: (obj, mapId) => dispatch(add(obj, mapId)),
 		me: () => dispatch(me()),
+		remove: (id) => dispatch(remove(id)),
 	};
 };
 

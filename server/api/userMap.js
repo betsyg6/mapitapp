@@ -49,4 +49,46 @@ router.post('/:id', async (req, res, next) => {
 	}
 });
 
+//delete a map and its locations
+router.delete('/:id', async (req, res, next) => {
+	try {
+		await Mapp.destroy({
+			where: {
+				id: req.params.id,
+			},
+		});
+		//this part isn't working right now
+		let locations = await Location.findAll({
+			where: {
+				mappId: req.params.id,
+			},
+		});
+		await locations.forEach((location) => {
+			location.destroy();
+		});
+		// await Location.destroy({
+		// 	where: {
+		// 		mappId: req.params.id,
+		// 	},
+		// });
+		res.sendStatus(204);
+	} catch (err) {
+		next(err);
+	}
+});
+
+//delete one location
+router.delete('/map/:id', async (req, res, next) => {
+	try {
+		await Location.destroy({
+			where: {
+				id: req.params.id,
+			},
+		});
+		res.sendStatus(204);
+	} catch (err) {
+		next(err);
+	}
+});
+
 module.exports = router;

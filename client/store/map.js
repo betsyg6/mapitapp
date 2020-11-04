@@ -14,7 +14,7 @@ const addLocation = (obj, mapId) => ({
 	mapId,
 });
 const addMap = (obj) => ({ type: ADD_MAP, obj });
-// const removeLocation = (locationId) => ({ type: REMOVE_LOCATION, locationId });
+const removeLocation = (locationId) => ({ type: REMOVE_LOCATION, locationId });
 
 //associate a map to a user
 export const addAMap = (obj) => {
@@ -46,15 +46,15 @@ export const add = (obj, mapId) => async (dispatch) => {
 	}
 };
 
-//havent written this yet...
-// export const remove = (locationId) => async (dispatch) => {
-// 	try {
-// 		const res = await axios.delete(`/api/userMap/${mapId}`);
-// 		dispatch(removeLocation());
-// 	} catch (err) {
-// 		console.log(err);
-// 	}
-// };
+//remove a location from the db
+export const remove = (locationId) => async (dispatch) => {
+	try {
+		await axios.delete(`/api/userMap/map/${locationId}`);
+		dispatch(removeLocation(locationId));
+	} catch (err) {
+		console.log(err);
+	}
+};
 
 //this is getting a map and its locations inside the map
 const defaultMap = {};
@@ -70,7 +70,13 @@ export default function mapReducer(state = defaultMap, action) {
 			} else {
 				return { ...state, locations: [action.location] };
 			}
-
+		case REMOVE_LOCATION:
+			let removed = [
+				...state.locations.filter((object) => {
+					return object.id !== action.locationId;
+				}),
+			];
+			return { ...state, locations: removed };
 		default:
 			return state;
 	}

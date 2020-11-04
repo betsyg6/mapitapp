@@ -141,8 +141,6 @@ class CreateANewMap extends React.Component {
 			),
 		});
 
-
-
 		return (
 			<div>
 				{this.state.mapAdded ? (

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get } from '../store/map';
 import { Link } from 'react-router-dom';
-import { fetchMaps } from '../store/maps';
+import { fetchMaps, deleteMap } from '../store/maps';
 
 class Home extends Component {
 	constructor(props) {
@@ -28,9 +28,17 @@ class Home extends Component {
 						{this.props.maps.map((obj) => {
 							//make these into links that you can click and it takes you to the map
 							return (
-								<Link to={`/singlemap/${obj.id}`} key={obj.id}>
-									<p>{obj.city}</p>
-								</Link>
+								<div key={obj.id}>
+									<Link to={`/singlemap/${obj.id}`}>
+										<p>{obj.city}</p>
+									</Link>
+									<button
+										type="button"
+										onClick={() => this.props.deleteMap(obj.id)}
+									>
+										x
+									</button>
+								</div>
 							);
 						})}
 					</ul>
@@ -52,6 +60,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
 	return {
 		fetchMaps: () => dispatch(fetchMaps()),
+		deleteMap: (id) => dispatch(deleteMap(id)),
 	};
 };
 

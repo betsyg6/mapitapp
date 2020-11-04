@@ -27,22 +27,20 @@ export const addMapToMaps = (obj) => {
 	};
 };
 
-// export const deleteMap = (id) => {
-// 	return async (dispatch, getState) => {
-// 		try {
-// 			await axios.delete(
-// 				`https://gobark-backend.herokuapp.com/api/photos/${id}`
-// 			);
-// 			dispatch({
-// 				type: REMOVE_PHOTOS,
-// 				id,
-// 				state: getState,
-// 			});
-// 		} catch (err) {
-// 			console.log(err);
-// 		}
-// 	};
-// };
+export const deleteMap = (id) => {
+	return async (dispatch, getState) => {
+		try {
+			await axios.delete(`/api/userMap/${id}`);
+			dispatch({
+				type: REMOVE_MAP,
+				id,
+				state: getState,
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
+};
 
 const maps = [];
 
@@ -50,13 +48,13 @@ export default function mapsReducer(state = maps, action) {
 	switch (action.type) {
 		case GET_MAPS:
 			return action.arrOfObj;
-		// case REMOVE_PHOTOS:
-		// 	let removed = [
-		// 		...state.filter((object) => {
-		// 			return object.id !== action.id;
-		// 		}),
-		// 	];
-		// 	return removed;
+		case REMOVE_MAP:
+			let removed = [
+				...state.filter((object) => {
+					return object.id !== action.id;
+				}),
+			];
+			return removed;
 		case ADD_MAP:
 			return [...state, action.obj];
 
