@@ -53,6 +53,10 @@ class CreateANewMap extends React.Component {
 	// 	this.setState({ showMenu: !this.state.showMenu });
 	// }
 
+	componentDidMount() {
+		this.props.me();
+	}
+
 	handleSave() {
 		this.state.description.forEach((obj) => {
 			if (!obj.saved) {

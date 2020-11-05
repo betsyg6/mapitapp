@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { get } from '../store/map';
 import { Link } from 'react-router-dom';
 import { fetchMaps, deleteMap } from '../store/maps';
+import { me } from '../store/user';
 
 class Home extends Component {
 	constructor(props) {
@@ -13,6 +14,7 @@ class Home extends Component {
 
 	componentDidMount() {
 		this.props.fetchMaps();
+		this.props.me();
 	}
 
 	render() {
@@ -61,6 +63,7 @@ const mapDispatch = (dispatch) => {
 	return {
 		fetchMaps: () => dispatch(fetchMaps()),
 		deleteMap: (id) => dispatch(deleteMap(id)),
+		me: () => dispatch(me()),
 	};
 };
 

@@ -2463,6 +2463,11 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
 
 
   _createClass(CreateANewMap, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.me();
+    }
+  }, {
     key: "handleSave",
     value: function handleSave() {
       var _this2 = this;
@@ -2720,8 +2725,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/map */ "./client/store/map.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _store_maps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/maps */ "./client/store/maps.js");
+/* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2751,6 +2757,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Home = /*#__PURE__*/function (_Component) {
   _inherits(Home, _Component);
 
@@ -2766,6 +2773,7 @@ var Home = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchMaps();
+      this.props.me();
     }
   }, {
     key: "render",
@@ -2777,7 +2785,7 @@ var Home = /*#__PURE__*/function (_Component) {
         //make these into links that you can click and it takes you to the map
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           key: obj.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
           to: "/singlemap/".concat(obj.id)
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.city)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "button",
@@ -2806,6 +2814,9 @@ var mapDispatch = function mapDispatch(dispatch) {
     },
     deleteMap: function deleteMap(id) {
       return dispatch((0,_store_maps__WEBPACK_IMPORTED_MODULE_3__.deleteMap)(id));
+    },
+    me: function me() {
+      return dispatch((0,_store_user__WEBPACK_IMPORTED_MODULE_4__.me)());
     }
   };
 };

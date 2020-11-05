@@ -8,12 +8,31 @@ const passport = require('passport');
 const port = process.env.PORT || 3000;
 const db = require('./server/db/db');
 const path = require('path');
+// var LocalStrategy = require('passport-local').Strategy;
+// let user;
 // const SequelizeStore = require('connect-session-sequelize')(session.Store);
 // const sessionStore = new SequelizeStore(db);
 
 //socket
 // const server = require('http').createServer(app);
 // const io = require('socket.io')(server);
+
+// Session middleware
+app.use(
+	session({
+		secret: 'This is not a very secure secret...',
+		resave: false,
+		// store: sessionStore,
+		saveUninitialized: false,
+	})
+);
+
+//***session is not persisting after refresh */
+app.use(passport.initialize());
+app.use(passport.session());
+
+// // passport config
+// passport.use(new LocalStrategy(user.authenticate()));
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));
@@ -33,19 +52,6 @@ app.use(morgan('dev'));
 // Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Session middleware
-app.use(
-	session({
-		secret: 'This is not a very secure secret...',
-		resave: false,
-		// store: sessionStore,
-		saveUninitialized: false,
-	})
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 // authentication router
 app.use('/auth', require('./server/auth/auth'));
