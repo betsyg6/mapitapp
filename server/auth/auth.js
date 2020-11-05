@@ -6,6 +6,7 @@ const { User, Mapp, Location } = require('../db');
 //get user's info
 router.get('/me', async (req, res, next) => {
 	try {
+		console.log(req.session);
 		if (!req.session.passport.user) {
 			res.sendStatus(401);
 		} else {

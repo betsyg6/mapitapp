@@ -40,15 +40,15 @@ const createApp = () => {
 	app.use(express.urlencoded({ extended: true }));
 
 	// Session middleware
-	// app.use(
-	// 	session({
-	// 		secret:
-	// 			process.env.SESSION_SECRET || 'This is not a very secure secret...',
-	// 		resave: false,
-	// 		store: sessionStore,
-	// 		saveUninitialized: false,
-	// 	})
-	// );
+	app.use(
+		session({
+			secret:
+				process.env.SESSION_SECRET || 'This is not a very secure secret...',
+			resave: false,
+			// store: sessionStore,
+			saveUninitialized: false,
+		})
+	);
 
 	app.use(passport.initialize());
 	app.use(passport.session());
