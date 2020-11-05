@@ -6,11 +6,12 @@ const morgan = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 const port = process.env.PORT || 3000;
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./server/db/db');
 const path = require('path');
 // var LocalStrategy = require('passport-local').Strategy;
 // let user;
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 const sessionStore = new SequelizeStore({ db });
 if (process.env.NODE_ENV !== 'production') require('./secrets');
 
@@ -38,7 +39,6 @@ const createApp = () => {
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 
-	let sessionSecret = process.env.SESSION_SECRET;
 	// Session middleware
 	app.use(
 		session({
