@@ -2240,12 +2240,12 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
-      var _this3 = this;
-
       event.preventDefault();
+      var eventId = event.target.firstChild.innerHTML;
       var obj = this.state.description.filter(function (obj) {
-        return obj.lat === _this3.state.lat && obj.lng === _this3.state.lng;
+        return obj.id === eventId;
       });
+      console.log('obj', obj);
       var icon = this.state.icon;
       var titleText = this.state.title;
       var image = this.state.imageUrl;
@@ -2260,7 +2260,7 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       // 	// <i id="home" className="fa fa-home fa-2x" />
       var heart = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
@@ -2296,33 +2296,33 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
           src: obj.imageUrl,
           alt: ""
         })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-          onSubmit: _this4.handleSubmit
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+          onSubmit: _this3.handleSubmit
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "title",
           type: "text",
           placeholder: "title",
-          onChange: _this4.handleChange,
+          onChange: _this3.handleChange,
           required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "imageUrl",
           type: "text",
           placeholder: "imageUrl",
-          onChange: _this4.handleChange,
+          onChange: _this3.handleChange,
           required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
           name: "icon",
-          value: _this4.state.icon,
-          onChange: _this4.handleChange
+          value: _this3.state.icon,
+          onChange: _this3.handleChange
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Places I Love"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Favorite Bars")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "submit"
         }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "button",
           onClick: function onClick() {
-            var filtered = _this4.state.description.filter(function (object) {
+            var filtered = _this3.state.description.filter(function (object) {
               return object.id !== obj.id;
             });
 
-            _this4.setState({
+            _this3.setState({
               description: filtered
             });
           }
@@ -2536,11 +2536,10 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
-      var _this4 = this;
-
       event.preventDefault();
+      var eventId = event.target.firstChild.innerHTML;
       var obj = this.state.description.filter(function (obj) {
-        return obj.latitude === _this4.state.lat && obj.longitude === _this4.state.lng;
+        return obj.id === eventId;
       });
       var icon = this.state.icon;
       var titleText = this.state.title;
@@ -2556,7 +2555,7 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       // 	// <i id="home" className="fa fa-home fa-2x" />
       var heart = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
@@ -2592,33 +2591,33 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
           src: obj.imageUrl,
           alt: ""
         })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-          onSubmit: _this5.handleSubmit
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+          onSubmit: _this4.handleSubmit
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "title",
           type: "text",
           placeholder: "title",
-          onChange: _this5.handleChange,
+          onChange: _this4.handleChange,
           required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "imageUrl",
           type: "text",
           placeholder: "imageUrl",
-          onChange: _this5.handleChange,
+          onChange: _this4.handleChange,
           required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
           name: "icon",
-          value: _this5.state.icon,
-          onChange: _this5.handleChange
+          value: _this4.state.icon,
+          onChange: _this4.handleChange
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Places I Love"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Favorite Bars")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "submit"
         }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "button",
           onClick: function onClick() {
-            var filtered = _this5.state.description.filter(function (object) {
+            var filtered = _this4.state.description.filter(function (object) {
               return object.id !== obj.id;
             });
 
-            _this5.setState({
+            _this4.setState({
               description: filtered
             });
           }
@@ -3374,8 +3373,7 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var num = Number(this.props.match.params.id);
-      this.props.getMap(num); //this is showing that the session isnt persisting
-
+      this.props.getMap(num);
       this.props.me();
     }
   }, {
@@ -3435,11 +3433,10 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
-      var _this4 = this;
-
       event.preventDefault();
+      var eventId = event.target.firstChild.innerHTML;
       var obj = this.state.description.filter(function (obj) {
-        return obj.latitude === _this4.state.lat && obj.longitude === _this4.state.lng;
+        return obj.id === eventId;
       });
       var icon = this.state.icon;
       var titleText = this.state.title;
@@ -3455,7 +3452,7 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       // 	// <i id="home" className="fa fa-home fa-2x" />
       var heart = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
@@ -3492,34 +3489,34 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
           alt: ""
         })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
           onSubmit: function onSubmit() {
-            return _this5.props.update(obj.id, {
-              title: _this5.state.title,
-              imageUrl: _this5.state.imageUrl,
-              icon: _this5.state.icon
+            return _this4.props.update(obj.id, {
+              title: _this4.state.title,
+              imageUrl: _this4.state.imageUrl,
+              icon: _this4.state.icon
             });
           }
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "title",
           type: "text",
           placeholder: "title",
-          onChange: _this5.handleChange,
+          onChange: _this4.handleChange,
           required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "imageUrl",
           type: "text",
           placeholder: "imageUrl",
-          onChange: _this5.handleChange,
+          onChange: _this4.handleChange,
           required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
           name: "icon",
-          value: _this5.state.icon,
-          onChange: _this5.handleChange
+          value: _this4.state.icon,
+          onChange: _this4.handleChange
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Places I Love"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Favorite Bars")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "submit"
         }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "button",
           onClick: function onClick() {
-            _this5.props.remove(obj.id);
+            _this4.props.remove(obj.id);
           }
         }, "Delete"))));
       }), this.state.description.length > 0 && this.state.description.map(function (obj) {
@@ -3531,33 +3528,33 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
           src: obj.imageUrl,
           alt: ""
         })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-          onSubmit: _this5.handleSubmit
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+          onSubmit: _this4.handleSubmit
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, obj.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "title",
           type: "text",
           placeholder: "title",
-          onChange: _this5.handleChange,
+          onChange: _this4.handleChange,
           required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           name: "imageUrl",
           type: "text",
           placeholder: "imageUrl",
-          onChange: _this5.handleChange,
+          onChange: _this4.handleChange,
           required: true
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
           name: "icon",
-          value: _this5.state.icon,
-          onChange: _this5.handleChange
+          value: _this4.state.icon,
+          onChange: _this4.handleChange
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Places I Love"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Favorite Bars")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "submit"
         }, "Submit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "button",
           onClick: function onClick() {
-            var filtered = _this5.state.description.filter(function (object) {
+            var filtered = _this4.state.description.filter(function (object) {
               return object.id !== obj.id;
             });
 
-            _this5.setState({
+            _this4.setState({
               description: filtered
             });
           }

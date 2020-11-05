@@ -37,7 +37,6 @@ class SingleMap extends React.Component {
 		const num = Number(this.props.match.params.id);
 		this.props.getMap(num);
 
-		//this is showing that the session isnt persisting
 		this.props.me();
 	}
 
@@ -91,10 +90,9 @@ class SingleMap extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
+		const eventId = event.target.firstChild.innerHTML;
 		let obj = this.state.description.filter((obj) => {
-			return (
-				obj.latitude === this.state.lat && obj.longitude === this.state.lng
-			);
+			return obj.id === eventId;
 		});
 		let icon = this.state.icon;
 		let titleText = this.state.title;
@@ -119,8 +117,6 @@ class SingleMap extends React.Component {
 				<i id="bar" className="fa fa-glass-martini fa-2x" />
 			),
 		});
-
-		
 
 		return (
 			<div>
@@ -222,6 +218,7 @@ class SingleMap extends React.Component {
 											</div>
 										) : (
 											<form onSubmit={this.handleSubmit}>
+												<p>{obj.id}</p>
 												<input
 													name="title"
 													type="text"

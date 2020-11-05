@@ -78,9 +78,11 @@ class CreateAMap extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
+		const eventId = event.target.firstChild.innerHTML;
 		let obj = this.state.description.filter((obj) => {
-			return obj.lat === this.state.lat && obj.lng === this.state.lng;
+			return obj.id === eventId;
 		});
+		console.log('obj', obj);
 		let icon = this.state.icon;
 		let titleText = this.state.title;
 		let image = this.state.imageUrl;
@@ -145,6 +147,7 @@ class CreateAMap extends React.Component {
 										</div>
 									) : (
 										<form onSubmit={this.handleSubmit}>
+											<p>{obj.id}</p>
 											<input
 												name="title"
 												type="text"

@@ -116,10 +116,9 @@ class CreateANewMap extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
+		const eventId = event.target.firstChild.innerHTML;
 		let obj = this.state.description.filter((obj) => {
-			return (
-				obj.latitude === this.state.lat && obj.longitude === this.state.lng
-			);
+			return obj.id === eventId;
 		});
 		let icon = this.state.icon;
 		let titleText = this.state.title;
@@ -187,6 +186,7 @@ class CreateANewMap extends React.Component {
 												</div>
 											) : (
 												<form onSubmit={this.handleSubmit}>
+													<p>{obj.id}</p>
 													<input
 														name="title"
 														type="text"

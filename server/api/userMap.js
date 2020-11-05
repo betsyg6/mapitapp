@@ -93,7 +93,6 @@ router.delete('/map/:id', async (req, res, next) => {
 });
 
 //update a location
-//this needs to be fixed because it logs out the user
 router.put('/map/:id', async (req, res, next) => {
 	try {
 		const location = await Location.findByPk(req.params.id);
