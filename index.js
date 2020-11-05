@@ -12,7 +12,7 @@ const path = require('path');
 // var LocalStrategy = require('passport-local').Strategy;
 // let user;
 
-const sessionStore = new SequelizeStore({ db });
+const sessionStore = new SequelizeStore( db );
 if (process.env.NODE_ENV !== 'production') require('./secrets');
 
 //socket
