@@ -3375,10 +3375,13 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
       this.props.getMap(num);
       console.log('map', this.props.map);
       this.props.me();
-      this.setState({
-        lat: Number(this.props.map.locations[0].latitude),
-        lng: Number(this.props.map.locations[0].longitude)
-      });
+
+      if (this.props.map.locations) {
+        this.setState({
+          lat: Number(this.props.map.locations[0].latitude),
+          lng: Number(this.props.map.locations[0].longitude)
+        });
+      }
     }
   }, {
     key: "handleSave",
