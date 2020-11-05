@@ -82,7 +82,6 @@ class CreateAMap extends React.Component {
 		let obj = this.state.description.filter((obj) => {
 			return obj.id === eventId;
 		});
-		console.log('obj', obj);
 		let icon = this.state.icon;
 		let titleText = this.state.title;
 		let image = this.state.imageUrl;

@@ -2245,7 +2245,6 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
       var obj = this.state.description.filter(function (obj) {
         return obj.id === eventId;
       });
-      console.log('obj', obj);
       var icon = this.state.icon;
       var titleText = this.state.title;
       var image = this.state.imageUrl;
@@ -3374,7 +3373,12 @@ var SingleMap = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var num = Number(this.props.match.params.id);
       this.props.getMap(num);
+      console.log('map', this.props.map);
       this.props.me();
+      this.setState({
+        lat: Number(this.props.map.locations[0].latitude),
+        lng: Number(this.props.map.locations[0].longitude)
+      });
     }
   }, {
     key: "handleSave",
