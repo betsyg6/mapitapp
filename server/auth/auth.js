@@ -79,4 +79,6 @@ router.delete('/logout', (req, res) => {
 	res.sendStatus(204);
 });
 
+router.use('/google', require('./googleOauth'));
+
 module.exports = router;

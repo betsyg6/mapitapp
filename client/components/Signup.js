@@ -61,6 +61,7 @@ class Signup extends Component {
 					<br />
 					<button type="submit">Sign Up</button>
 				</form>
+				<a href="/auth/google">Sign Up with Google</a>
 			</div>
 		);
 	}

@@ -10,29 +10,13 @@ const db = require('./server/db/db');
 const path = require('path');
 // var LocalStrategy = require('passport-local').Strategy;
 // let user;
-// const SequelizeStore = require('connect-session-sequelize')(session.Store);
-// const sessionStore = new SequelizeStore(db);
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sessionStore = new SequelizeStore({ db });
+require('./secrets');
 
 //socket
 // const server = require('http').createServer(app);
 // const io = require('socket.io')(server);
-
-// Session middleware
-app.use(
-	session({
-		secret: 'This is not a very secure secret...',
-		resave: false,
-		// store: sessionStore,
-		saveUninitialized: false,
-	})
-);
-
-//***session is not persisting after refresh */
-app.use(passport.initialize());
-app.use(passport.session());
-
-// // passport config
-// passport.use(new LocalStrategy(user.authenticate()));
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));
@@ -46,27 +30,49 @@ passport.deserializeUser(async (id, done) => {
 	}
 });
 
-// Logging middleware
-app.use(morgan('dev'));
+const createApp = () => {
+	// Logging middleware
+	app.use(morgan('dev'));
 
-// Body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+	// Body parsing middleware
+	app.use(express.json());
+	app.use(express.urlencoded({ extended: true }));
 
-// authentication router
-app.use('/auth', require('./server/auth/auth'));
-//other routes
-app.use('/api', require('./server/api'));
+	let sessionSecret = process.env.SESSION_SECRET;
+	// Session middleware
+	app.use(
+		session({
+			secret:
+				process.env.SESSION_SECRET || 'This is not a very secure secret...',
+			resave: false,
+			store: sessionStore,
+			saveUninitialized: false,
+		})
+	);
 
-app.use(express.static(path.join(__dirname, 'client/public')));
+	//***session is not persisting after refresh */
+	app.use(passport.initialize());
+	app.use(passport.session());
 
-app.get('*', function (req, res, next) {
-	res.sendFile(path.join(__dirname, '/client/public/index.html'));
-});
+	// // passport config
+	// passport.use(new LocalStrategy(user.authenticate()));
+
+	// authentication router
+	app.use('/auth', require('./server/auth/auth'));
+	//other routes
+	app.use('/api', require('./server/api'));
+
+	app.use(express.static(path.join(__dirname, 'client/public')));
+
+	app.get('*', function (req, res, next) {
+		res.sendFile(path.join(__dirname, '/client/public/index.html'));
+	});
+};
 
 async () => {
-	// await sessionStore.sync();
+	await sessionStore.sync();
 	await db.sync({ force: true });
+	await createApp();
 };
 
 // io.on('connection', (socket) => {
@@ -89,5 +95,7 @@ async () => {
 const server = app.listen(port, () => {
 	console.log(`listening on port ${port}`);
 });
+
+createApp();
 
 module.exports = server;

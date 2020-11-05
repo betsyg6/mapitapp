@@ -32,7 +32,6 @@ class Login extends Component {
 	}
 
 	render() {
-	
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
@@ -62,6 +61,7 @@ class Login extends Component {
 					<br />
 					<button type="submit">Login</button>
 				</form>
+				<a href="/auth/google">Login with Google</a>
 			</div>
 		);
 	}

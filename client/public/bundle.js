@@ -2931,7 +2931,9 @@ var Login = /*#__PURE__*/function (_Component) {
         required: true
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "submit"
-      }, "Login")));
+      }, "Login")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+        href: "/auth/google"
+      }, "Login with Google"));
     }
   }]);
 
@@ -3242,7 +3244,9 @@ var Signup = /*#__PURE__*/function (_Component) {
         required: true
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "submit"
-      }, "Sign Up")));
+      }, "Sign Up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+        href: "/auth/google"
+      }, "Sign Up with Google"));
     }
   }]);
 
