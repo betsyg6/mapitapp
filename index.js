@@ -12,7 +12,7 @@ const path = require('path');
 // let user;
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sessionStore = new SequelizeStore({ db });
-require('./secrets');
+if (process.env.NODE_ENV !== 'production') require('./secrets');
 
 //socket
 // const server = require('http').createServer(app);
