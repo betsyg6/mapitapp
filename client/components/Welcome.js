@@ -15,4 +15,3 @@ const Welcome = () => {
 
 export default Welcome;
 
-//push here after logging in and change this welcome to be customized to the user

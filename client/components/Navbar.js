@@ -46,4 +46,4 @@ const mapDispatch = (dispatch) => {
 
 export default connect(mapState, mapDispatch)(NavBar);
 
-//eventually have the ternary for if youre logged in
+

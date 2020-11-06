@@ -6,8 +6,6 @@ const seed = async () => {
 	try {
 		await db.sync({ force: true });
 
-		// seed your database here!
-
 		const admin = await User.create({
 			email: 'admin',
 			password: 'admin',

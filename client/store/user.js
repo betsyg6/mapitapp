@@ -28,7 +28,6 @@ export const login = (email, password) => async (dispatch) => {
 		let res = await axios.post(`/auth/login`, object);
 		dispatch(getUser(res.data));
 		history.push('/');
-		//how do i get this to actually forward me? need to use react router in frontend component
 	} catch (err) {
 		console.log(err);
 		history.push('/login');

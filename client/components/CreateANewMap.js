@@ -11,19 +11,7 @@ import { connect } from 'react-redux';
 import { get, add, addAMap } from '../store/map';
 import { me } from '../store/user';
 
-// export const food = new L.Icon({
-// 	iconUrl: './restaurant-outline.svg',
-// 	iconSize: [25, 55],
-// });
 
-// export const heart = divIcon({
-// 	html: renderToStaticMarkup(<i id="heart" className="fa fa-heart fa-2x" />),
-// });
-// export const bar = divIcon({
-// 	html: renderToStaticMarkup(
-// 		<i id="bar" className="fa fa-glass-martini fa-2x" />
-// 	),
-// });
 
 class CreateANewMap extends React.Component {
 	constructor(props) {
@@ -45,13 +33,10 @@ class CreateANewMap extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.findMe = this.findMe.bind(this);
 		this.addMap = this.addMap.bind(this);
-		// this.menuToggle = this.menuToggle.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 	}
 
-	// menuToggle() {
-	// 	this.setState({ showMenu: !this.state.showMenu });
-	// }
+
 
 	componentDidMount() {
 		this.props.me();
@@ -78,7 +63,6 @@ class CreateANewMap extends React.Component {
 	addMap() {
 		let obj = { city: this.state.city };
 		this.props.addAMap(obj);
-		//add conditional for if the thunk was successful
 		this.setState({
 			mapAdded: true,
 		});
@@ -155,11 +139,6 @@ class CreateANewMap extends React.Component {
 								Find me!
 							</button>
 						</div>
-
-						{/* <div className={this.state.showMenu ? 'showMenu' : 'hideMenu'}>
-					<p>icon options!</p>
-				</div>
-				<button type="button" onClick={this.menuToggle}>*</button> */}
 
 						<Map
 							center={[this.state.lat, this.state.lng]}
@@ -283,6 +262,4 @@ const mapDispatch = (dispatch) => {
 
 export default connect(mapState, mapDispatch)(CreateANewMap);
 
-//view all popups?
-//icons
-//delete all popups?
+

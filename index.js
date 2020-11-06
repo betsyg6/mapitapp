@@ -6,11 +6,8 @@ const morgan = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 const port = process.env.PORT || 3000;
-// const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./server/db/db');
 const path = require('path');
-// var LocalStrategy = require('passport-local').Strategy;
-// let user;
 
 // const sessionStore = new SequelizeStore({ db } );
 if (process.env.NODE_ENV !== 'production') require('./secrets');
@@ -45,16 +42,12 @@ const createApp = () => {
 			secret:
 				process.env.SESSION_SECRET || 'This is not a very secure secret...',
 			resave: false,
-			// store: sessionStore,
 			saveUninitialized: false,
 		})
 	);
 
 	app.use(passport.initialize());
 	app.use(passport.session());
-
-	// // passport config
-	// passport.use(new LocalStrategy(user.authenticate()));
 
 	// authentication router
 	app.use('/auth', require('./server/auth/auth'));
@@ -69,7 +62,6 @@ const createApp = () => {
 };
 
 async () => {
-	// await sessionStore.sync();
 	await db.sync({ force: true });
 	await createApp();
 };
@@ -81,14 +73,6 @@ async () => {
 // 		console.log('message: ' + msg);
 // 	});
 
-// 	socket.on('updatePoints', () => {
-// 		console.log('backend: update points');
-// 		io.emit('pointsUpdated');
-// 	});
-
-// 	socket.on('disconnect', () => {
-// 		console.log('disconnected');
-// 	});
 // });
 
 const server = app.listen(port, () => {

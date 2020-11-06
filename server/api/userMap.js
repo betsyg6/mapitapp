@@ -3,7 +3,7 @@
 const router = require('express').Router();
 const { User, Mapp, Location } = require('../db');
 
-// let user = req.user.id <<will need this for user middleware
+// let user = req.user.id <<user middleware
 
 //get one map and it's locations
 router.get('/:id', async (req, res, next) => {
@@ -13,9 +13,7 @@ router.get('/:id', async (req, res, next) => {
 			include: [
 				{
 					model: Location,
-					// where: {
-					// 	mapId: req.params.id,
-					// },
+
 				},
 			],
 		});
@@ -58,7 +56,6 @@ router.delete('/:id', async (req, res, next) => {
 				id: req.params.id,
 			},
 		});
-		//this part isn't working right now
 		let locations = await Location.findAll({
 			where: {
 				mappId: req.params.id,

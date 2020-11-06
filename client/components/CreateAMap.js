@@ -8,19 +8,6 @@ import nextId from 'react-id-generator';
 import PrintControlDefault from 'react-leaflet-easyprint';
 const PrintControl = withLeaflet(PrintControlDefault);
 
-// export const food = new L.Icon({
-// 	iconUrl: './restaurant-outline.svg',
-// 	iconSize: [25, 55],
-// });
-
-// export const heart = divIcon({
-// 	html: renderToStaticMarkup(<i id="heart" className="fa fa-heart fa-2x" />),
-// });
-// export const bar = divIcon({
-// 	html: renderToStaticMarkup(
-// 		<i id="bar" className="fa fa-glass-martini fa-2x" />
-// 	),
-// });
 
 class CreateAMap extends React.Component {
 	constructor(props) {
@@ -39,12 +26,9 @@ class CreateAMap extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.findMe = this.findMe.bind(this);
-		// this.menuToggle = this.menuToggle.bind(this);
 	}
 
-	// menuToggle() {
-	// 	this.setState({ showMenu: !this.state.showMenu });
-	// }
+
 
 	findMe() {
 		navigator.geolocation.getCurrentPosition((position) => {
@@ -116,10 +100,6 @@ class CreateAMap extends React.Component {
 					</button>
 				</div>
 
-				{/* <div className={this.state.showMenu ? 'showMenu' : 'hideMenu'}>
-					<p>icon options!</p>
-				</div>
-				<button type="button" onClick={this.menuToggle}>*</button> */}
 
 				<Map
 					center={[this.state.lat, this.state.lng]}
@@ -205,5 +185,4 @@ class CreateAMap extends React.Component {
 
 export default CreateAMap;
 
-//view all popups?
-//icons
+
