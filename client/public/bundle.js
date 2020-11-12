@@ -2157,18 +2157,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var PrintControl = (0,react_leaflet__WEBPACK_IMPORTED_MODULE_5__.withLeaflet)((react_leaflet_easyprint__WEBPACK_IMPORTED_MODULE_4___default())); // export const food = new L.Icon({
-// 	iconUrl: './restaurant-outline.svg',
-// 	iconSize: [25, 55],
-// });
-// export const heart = divIcon({
-// 	html: renderToStaticMarkup(<i id="heart" className="fa fa-heart fa-2x" />),
-// });
-// export const bar = divIcon({
-// 	html: renderToStaticMarkup(
-// 		<i id="bar" className="fa fa-glass-martini fa-2x" />
-// 	),
-// });
+var PrintControl = (0,react_leaflet__WEBPACK_IMPORTED_MODULE_5__.withLeaflet)((react_leaflet_easyprint__WEBPACK_IMPORTED_MODULE_4___default()));
 
 var CreateAMap = /*#__PURE__*/function (_React$Component) {
   _inherits(CreateAMap, _React$Component);
@@ -2194,13 +2183,9 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
-    _this.findMe = _this.findMe.bind(_assertThisInitialized(_this)); // this.menuToggle = this.menuToggle.bind(this);
-
+    _this.findMe = _this.findMe.bind(_assertThisInitialized(_this));
     return _this;
-  } // menuToggle() {
-  // 	this.setState({ showMenu: !this.state.showMenu });
-  // }
-
+  }
 
   _createClass(CreateAMap, [{
     key: "findMe",
@@ -2339,8 +2324,7 @@ var CreateAMap = /*#__PURE__*/function (_React$Component) {
   return CreateAMap;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateAMap); //view all popups?
-//icons
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateAMap);
 
 /***/ }),
 
@@ -2412,18 +2396,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 var PrintControl = (0,react_leaflet__WEBPACK_IMPORTED_MODULE_5__.withLeaflet)((react_leaflet_easyprint__WEBPACK_IMPORTED_MODULE_4___default()));
 
 
- // export const food = new L.Icon({
-// 	iconUrl: './restaurant-outline.svg',
-// 	iconSize: [25, 55],
-// });
-// export const heart = divIcon({
-// 	html: renderToStaticMarkup(<i id="heart" className="fa fa-heart fa-2x" />),
-// });
-// export const bar = divIcon({
-// 	html: renderToStaticMarkup(
-// 		<i id="bar" className="fa fa-glass-martini fa-2x" />
-// 	),
-// });
+
 
 var CreateANewMap = /*#__PURE__*/function (_React$Component) {
   _inherits(CreateANewMap, _React$Component);
@@ -2452,14 +2425,10 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.findMe = _this.findMe.bind(_assertThisInitialized(_this));
-    _this.addMap = _this.addMap.bind(_assertThisInitialized(_this)); // this.menuToggle = this.menuToggle.bind(this);
-
+    _this.addMap = _this.addMap.bind(_assertThisInitialized(_this));
     _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
     return _this;
-  } // menuToggle() {
-  // 	this.setState({ showMenu: !this.state.showMenu });
-  // }
-
+  }
 
   _createClass(CreateANewMap, [{
     key: "componentDidMount",
@@ -2491,8 +2460,7 @@ var CreateANewMap = /*#__PURE__*/function (_React$Component) {
       var obj = {
         city: this.state.city
       };
-      this.props.addAMap(obj); //add conditional for if the thunk was successful
-
+      this.props.addAMap(obj);
       this.setState({
         mapAdded: true
       });
@@ -2669,9 +2637,7 @@ var mapDispatch = function mapDispatch(dispatch) {
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_6__.connect)(mapState, mapDispatch)(CreateANewMap)); //view all popups?
-//icons
-//delete all popups?
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_6__.connect)(mapState, mapDispatch)(CreateANewMap));
 
 /***/ }),
 
@@ -3023,7 +2989,7 @@ var mapDispatch = function mapDispatch(dispatch) {
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(NavBar)); //eventually have the ternary for if youre logged in
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(NavBar));
 
 /***/ }),
 
@@ -3644,7 +3610,7 @@ var Welcome = function Welcome() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "an app that helps you share locations")));
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Welcome); //push here after logging in and change this welcome to be customized to the user
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Welcome);
 
 /***/ }),
 
@@ -4341,8 +4307,7 @@ var login = function login(email, password) {
             case 4:
               res = _context2.sent;
               dispatch(getUser(res.data));
-              _history__WEBPACK_IMPORTED_MODULE_1__.default.push('/'); //how do i get this to actually forward me? need to use react router in frontend component
-
+              _history__WEBPACK_IMPORTED_MODULE_1__.default.push('/');
               _context2.next = 13;
               break;
 
